@@ -3,3 +3,6 @@ Segundo parcial
 
 Nombre de Equipo: Los DeLorean
 Administrador: Marcos Facundo Murcia
+
+--Integrantes:
+-----Federico Santamaria
