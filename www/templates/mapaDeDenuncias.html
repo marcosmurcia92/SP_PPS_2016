@@ -3,18 +3,13 @@
 <button class="button button-icon icon ion-map"></button>
 </ion-nav-buttons>
 <ion-content padding="true" style="background: url(img/TzAU9V7YRW2wCVQP1Ibx_andygeeart.jpeg) no-repeat center;background-size:cover;" class="has-header">
-
 <ng-map   center="[{{map.latitud}}, {{map.longitud}}]" zoom="10">
-<custom-marker ng-repeat="p in marcas" position="{{p.lati}},{{p.longi}}">
-<div>
-	hola
-	-a
-</div>
+<custom-marker  ng-repeat="p in marcas" position="{{p.lati}},{{p.longi}}" >
+<a  ng-click="MostrarInformacion(p)" ><img  ng-src="img/mapa/{{p.imagen}}.png"  width="40" height="40" /> </a>
+<div class='pulse'></div>
 </custom-marker>
 
 </ng-map>
-
-
 
 </ion-content>
 </ion-view>
