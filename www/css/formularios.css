@@ -14,3 +14,14 @@ div.formulario{
 .large textarea{
 	height:90px;
 }
+.item-checkbox{
+	border:0px;
+}
+.formulario button{
+	width:94%;
+	margin-left:3%;
+}
+.formulario .range span {
+	width:40%;
+	float:left;
+}

@@ -10,13 +10,26 @@
 	    	  	Tipo de reclamo
 	    	</div>
 	    	<select>
-	      		<option ng-repeat="tipo in tipos" value="tipo.value">{{tipo.name}}</option>
+	      		<option ng-repeat="tipo in tipos" value="tipo.value" ng-model="denuncia.tipo">{{tipo.name}}</option>
 	    	</select>
   	  	</label>
-	  
+		<label class="item item-input">
+			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="denuncia.esubicacionactual" style="float:right">
+		</label>
+		<label class="item item-input">
+			<input type="text" ng-model="denuncia.ubicacionactual" disabled ng-show="denuncia.esubicacionactual">
+			<input type="text" placeholder="Ingrese lugar del incidente" ng-model="denuncia.lugar" ng-show="!denuncia.esubicacionactual">
+		</label>
+		<label class="item item-input">
+			¿Requiere presencia policial?<ion-checkbox ng-model="denuncia.requierepolicia" style="float:right">
+		</label>
 	  	<label class="item item-input large">
-	    	<textarea placeholder="Información adicional"></textarea>
+	    	<textarea placeholder="Información adicional" ng-model="denuncia.adicional"></textarea>
 	  	</label>
+
+	  	<button class="button button-block button-energized">
+		  Ingresar denuncia
+		</button>
 	</div>
 
   </ion-content>
