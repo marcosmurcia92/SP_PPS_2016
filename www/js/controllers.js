@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['firebase', 'ngCordova'])
 
-.controller('denunciaUnEventoCtrl', function ($scope, $stateParams, $cordovaGeolocation) {
+.controller('denunciaUnEventoCtrl', function ($scope, $stateParams, $ionicPlatform, $cordovaGeolocation) {
 	$scope.tipos = [
 		{
 			name: 'Accidente',
@@ -21,10 +21,48 @@ angular.module('app.controllers', ['firebase', 'ngCordova'])
 	];
 
 	$scope.denuncia = {};
+	$scope.denuncia.ubicacionactual = {};
 
-	$scope.denuncia.ubicacionactual = 'Ruta 8 km 32, Argentina';
-	$scope.denuncia.esubicacionactual = true;
+	try{
+      $ionicPlatform.ready(function() {
+      		var posOptions = {timeout: 10000, enableHighAccuracy: true};
+      	  	$cordovaGeolocation
+		    .getCurrentPosition(posOptions)
+		    .then(function (position) {
+		    	console.info(position);
+				$scope.denuncia.esubicacionactual = true;
 
+				$scope.denuncia.ubicacionactual.nombre = 'Ruta 8 km 32, Argentina';
+		      	$scope.denuncia.ubicacionactual.lat = position.coords.latitude;
+		      	$scope.denuncia.ubicacionactual.long = position.coords.longitude;
+
+		      	var geocoder = new google.maps.Geocoder();
+		      	var latlng = new google.maps.LatLng($scope.denuncia.ubicacionactual.lat, 
+		      								$scope.denuncia.ubicacionactual.long);
+		      	var request = {
+		        	latLng: latlng
+		      	};
+		      	geocoder.geocode(request, function(data, status) {
+		        	if (status == google.maps.GeocoderStatus.OK) {
+		        		if (data[0] != null) {
+		            		$scope.denuncia.ubicacionactual.nombre = data[0].formatted_address;
+		          		} else {
+		          			console.error("No hay informacion", data);
+		            		$scope.denuncia.ubicacionactual.nombre = "";
+		          		}
+		        	}
+		      	})
+
+		    }, function(err) {
+		    	console.error(err);
+				$scope.denuncia.esubicacionactual = false;
+		    });
+      });
+  	}
+  	catch(e){
+  		console.error(e);
+		$scope.denuncia.esubicacionactual = false;
+  	}
 })
 
 .controller('mapaDeDenunciasCtrl', function ($scope, $stateParams,NgMap,$ionicPopup) {

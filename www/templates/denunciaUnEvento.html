@@ -17,7 +17,7 @@
 			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="denuncia.esubicacionactual" style="float:right">
 		</label>
 		<label class="item item-input">
-			<input type="text" ng-model="denuncia.ubicacionactual" disabled ng-show="denuncia.esubicacionactual">
+			<input type="text" ng-model="denuncia.ubicacionactual.nombre" disabled ng-show="denuncia.esubicacionactual">
 			<input type="text" placeholder="Ingrese lugar del incidente" ng-model="denuncia.lugar" ng-show="!denuncia.esubicacionactual">
 		</label>
 		<label class="item item-input">
