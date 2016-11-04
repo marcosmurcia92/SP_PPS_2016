@@ -1,0 +1,16 @@
+div.formulario{
+	background-color: white;
+	opacity: 0.8;
+	color:black;
+	margin: 10%;
+}
+.formulario label{
+	display:block;
+}
+
+.large {
+	height:100px;
+}
+.large textarea{
+	height:90px;
+}

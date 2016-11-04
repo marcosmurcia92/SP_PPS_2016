@@ -1,7 +1,24 @@
 angular.module('app.controllers', ['firebase'])
 
 .controller('denunciaUnEventoCtrl', function ($scope, $stateParams) {
-
+	$scope.tipos = [
+		{
+			name: 'Accidente',
+			value: 1
+		},
+		{
+			name: 'Avería de su vehículo',
+			value: 2
+		},
+		{
+			name: 'Animal suelto',
+			value: 3
+		},
+		{
+			name: 'Necesidad de ambulancia',
+			value: 4
+		}
+	]
 
 })
 
