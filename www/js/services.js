@@ -6,9 +6,28 @@ angular.module('app.services', [])
 
 .factory('UsuarioDelorean',[function(){
 	var nombre = "";
-	var mail = "";
+	var email = "";
 	var soyAdmin = false;
-	
+
+	return {
+		login:function(name,mail,admin){
+			nombre = name;
+			email = mail;
+			soyAdmin = (admin == "SI");
+		},getName:function(){
+			return nombre;
+		},getEmail:function(){
+			return email;
+		},isAdmin:function(){
+			return soyAdmin;
+		},getFullData:function(){
+			var jsonUsuario = {};
+			jsonUsuario.nombre = nombre;
+			jsonUsuario.email = email;
+			jsonUsuario.soyAdmin = soyAdmin;
+			return JSON.stringify(jsonUsuario);
+		}
+	};
 }])
 
 .service('SrvFirebase', [function(){
