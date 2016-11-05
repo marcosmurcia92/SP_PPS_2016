@@ -19,6 +19,7 @@ Nombre de Equipo:
  - Manejo de Servicios: Marcos Facundo Murcia
  
 ### Progreso:
+ - [ ] PUSH NOTIFICATIONS!
  - [X] Inicializacion de Servicios Basicos.
  - [X] Login con Google+, Github y Firebase (desde Android).
  - [ ] Asignacion de Tokens de registro a Firebase Auth.
