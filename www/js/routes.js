@@ -40,6 +40,16 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('menu.grillaAdmin', {
+    url: '/grillaAdmin',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/grillaAdministrador.html',
+        controller: 'grillaCtrl'
+      }
+    }
+  })
+
   .state('menu', {
     url: '/side-menu21',
     templateUrl: 'templates/menu.html',

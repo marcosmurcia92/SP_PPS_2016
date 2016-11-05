@@ -5,7 +5,10 @@ angular.module('app.services', [])
 }])
 
 .factory('UsuarioDelorean',[function(){
-
+	var nombre = "";
+	var mail = "";
+	var soyAdmin = false;
+	
 }])
 
 .service('SrvFirebase', [function(){
@@ -13,14 +16,20 @@ angular.module('app.services', [])
 	this.RefUsuarios = RefUsuarios;
 	this.RefDenuncias = RefDenuncias;
 
-	var rutaFirebase = firebase.database().ref();
+	function ObtenerRef(coleccion){
+		return firebase.database().ref(coleccion);
+	}
 
 	function RefUsuarios(){
-		return rutaFirebase.child('usuarios/');
+		return ObtenerRef('usuarios/');
 	}
 
 	function RefDenuncias(){
-		return rutaFirebase.child('denuncias/');
+		return ObtenerRef('denuncias/');
+	}
+
+	function RefDenuncias(){
+		return ObtenerRef('contactos/');
 	}
 }])
 
