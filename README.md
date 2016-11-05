@@ -23,10 +23,14 @@ Nombre de Equipo:
  - [X] Login con Google+, Github y Firebase (desde Android).
  - [ ] Asignacion de Tokens de registro a Firebase Auth.
  - [ ] Login con Google+ y Github desde Web.
- - [ ] Factory de Usuario.
+ - [ ] Completar datos de Factory de Usuario.
  - [ ] Usuario guardado en Firebase.
  - [X] Interfaz de Alta de Denuncias.
  - [X] Interfaz de Alta de Reclamos/Sugerencias.
  - [X] Mapa de Denuncias con Markers Personalizados.
  - [ ] Sincronizacion de Alta con Mapas en Firebase.
- 
+ - [ ] Diferenciar contenido accesible por clientes y administradores.
+ - [ ] Grilla con Denuncias (Solo Administrador).
+ - [ ] Grilla con Reclamos (Solo Administrador).
+ - [ ] Graficos de Denuncias (Solo Administrador).
+ - [ ] Graficos de Reclamos (Solo Administrador).
