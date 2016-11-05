@@ -7,8 +7,17 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','ngMap', 'ngCordova', 'ionic.cloud'])
 
-.config(function($ionicConfigProvider){
-  
+.config(function($ionicConfigProvider, $ionicCloudProvider){
+  $ionicCloudProvider.init({
+    "core": {
+      "app_id": "d9d74a91"
+    },
+    "auth": {
+      "google": {
+        "webClientId": "967621848769-te5m86iefmie4rnoji7bc3po6b3gidet.apps.googleusercontent.com"
+      }
+    }
+  })
 })
 
 .run(function($ionicPlatform) {
