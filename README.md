@@ -34,3 +34,5 @@ Nombre de Equipo:
  - [ ] Grilla con Reclamos (Solo Administrador).
  - [ ] Graficos de Denuncias (Solo Administrador).
  - [ ] Graficos de Reclamos (Solo Administrador).
+ - [ ] Pagina de Autores.
+ - [ ] Splash + Icono
