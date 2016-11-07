@@ -1,101 +1,27 @@
 angular.module('app.controllers')
 
-.controller('mapaDeDenunciasCtrl', function ($scope, $stateParams,NgMap,$ionicPopup) {
+.controller('mapaDeDenunciasCtrl', function ($scope, $stateParams,NgMap,$ionicPopup,SrvFirebase,$timeout) {
 	var  usuario="Robertiño";
 	var  fecha="10/10/2016";
-	var descripcion="Choque  de frente entre dos autos con multiples herido, ambulacia  en camino";
-	//var firabaseMapa=new Firebase('https://autopistasdelorian-ea30b.firebaseio.com/PruebaMapa');
-	//firabaseMapa.push({"mensaje":"hola"});
-
+	var referenciaDenuncia= SrvFirebase.RefDenuncias();
 	$scope.map = {};
 	$scope.map.name = "Alarmas";
 	$scope.map.latitud = -34.6671999;
 	$scope.map.longitud = -58.35926;
-	$scope.mensaje="holaa";
-	$scope.marcas = [];
-	for (var i = 0; i < 10; i++) {
-		var imagen;
-		switch(i){
-			case 1:
-			imagen="marcaAccidente"
-			var  usuario="Robertiño";
-			var  fecha="10/10/2016";
-			var descripcion="Choque  de frente entre dos autos con multiples herido, ambulacia  en camino";
-
-			break;
-			case 2:
-			imagen="marcaAccidente"
-			var  usuario="Jose";
-			var  fecha="03/05/2016";
-			var descripcion="Choque   de moto  contra  un camion  3 muertos "; 
-			break;
-			case 3:
-			imagen="marcaAmbulancia"	
-			var  usuario="Josafina";
-			var  fecha="04/05/2016";
-			var descripcion="Herido de Gravedad "; 
-			break;
-			case 4:
-			imagen="marcaAmbulancia"	
-			var  usuario="Marta";
-			var  fecha="04/06/2016";
-			var descripcion="Fractura  multiple "; 
-			break;
-			case 5:
-			imagen="marcaAmbulancia"
-			var  usuario="Mario";
-			var  fecha="04/05/2016";
-			var descripcion="Animal  herido   "; 
-			break;
-			case 6:
-			imagen="marcaAnimal"
-			var  usuario="Mario";
-			var  fecha="04/05/2016";
-			var descripcion="Elefante por el medio de la avenida, destruye todo lo  que se le pone en el camino   "; 
-			break;
-			case 7:
-			imagen="marcaAnimal"
-			var  usuario="Maria";
-			var  fecha="01/05/2016";
-			var descripcion="Jirafa en el tunel no puede salir  "; 
-			break;
-			case 8:
-			imagen="marcaAveria"
-			var  usuario="Juan";
-			var  fecha="14/08/2016";
-			var descripcion="Auto  sin rueda posiblemente  los roba rueda  en accion   "; 
-			break;
-			case 9:
-			imagen="marcaAveria"
-			var  usuario="Julian";
-			var  fecha="24/11/2016";
-			var descripcion="Camion  desbarranco  el acoplado por la 9 de julio"; 
-			break;
-			case 0:
-			imagen="marcaAveria"
-			var  usuario="Agustin";
-			var  fecha="24/11/2016";
-			var descripcion="Camion  problemas en el motor "; 
-			break;
-		}
-
-		var longi=Math.random();
-		var lati= Math.random();
-		console.log((-30.1347676-lati)+"-"+(-45.6016699-longi))
-		///console.log(Math.random());
-		//console.log(Math.floor((Math.random()*100) + 1));
-		$scope.marcas.push({
-			lati:(- 35.6016699+lati), 
-			longi:( -59.1347676+longi),
-			imagen:imagen,
-			fecha:fecha,
-			usuario:usuario,
-			descripcion:descripcion
-
+	$scope.marcas = []; 
+	referenciaDenuncia.on('child_added', function (snapshot) {
+		$timeout(function(){
+			var message = snapshot.val();
+			$scope.marcas.push(message);
 		})
-	};
+
+	});
 
 	$scope.MostrarInformacion=function( dato){
+	   var fecha=	new Date(dato.fechaIngreso);
+	   var dia= fecha.getDate()<10? "0"+ fecha.getDate(): fecha.getDate();
+	   var mes= fecha.getMonth()<10? "0"+ (fecha.getMonth()+1): fecha.getMonth()+1;
+		dato.fechaIngreso=  dia+"-"+ mes+"-"+ fecha.getFullYear();
 		$scope.informacion=dato;
 		$ionicPopup.alert({
 			templateUrl: 'templates/popupInformacion.html',
@@ -103,9 +29,10 @@ angular.module('app.controllers')
 			subTitle: 'Datos de lo que ha pasado',
 			scope: $scope
 		});
-
-
-
 	}
+
+
+
+
 
 });
