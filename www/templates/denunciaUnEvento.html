@@ -14,11 +14,23 @@
 	    	</select>
   	  	</label>
 		<label class="item item-input">
-			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="denuncia.esubicacionactual" style="float:right">
+			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="opciones.esubicacionactual" style="float:right">
 		</label>
 		<label class="item item-input">
-			<input type="text" ng-model="denuncia.ubicacionactual.nombre" disabled ng-show="denuncia.esubicacionactual">
-			<input type="text" placeholder="Ingrese lugar del incidente" ng-model="denuncia.lugar.nombre" ng-show="!denuncia.esubicacionactual" ng-blur="TraerCoordenadas()" googleplace>
+			<input type="text" ng-model="denuncia.ubicacionactual.nombre" disabled ng-show="opciones.esubicacionactual">
+			<input type="text" placeholder="Ingrese lugar del incidente" ng-model="denuncia.lugar.nombre" ng-show="!opciones.esubicacionactual" ng-blur="TraerCoordenadas()" googleplace>
+		</label>
+		<label class="item item-input">
+			¿El incidente sucedió recién?<ion-checkbox ng-model="opciones.esfechaactual" style="float:right" ng-change="ElegirFecha()">
+		</label>
+		<label class="item item-input">
+			<input type="datetime-local" ng-model="denuncia.fechaActual" disabled ng-show="opciones.esfechaactual">
+			<!--<ion-list ng-show="!opciones.esfechaactual">
+			    <div class="item" ion-datetime-picker ng-model="datetimeValue" only-valid="{'before': fenuncia.fechaActual, 'inclusive': true}">
+			        {{datetimeValue| date: "yyyy-MM-dd H:mm"}}
+			    </div>
+			</ion-list>-->
+			<input type="datetime-local" placeholder="Ingrese fecha y hora del incidente" ng-model="denuncia.fechaSuceso" ng-show="!opciones.esfechaactual">
 		</label>
 		<label class="item item-input">
 			¿Requiere presencia policial?<ion-checkbox ng-model="denuncia.requierepolicia" style="float:right">
