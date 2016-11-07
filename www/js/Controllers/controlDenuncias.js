@@ -1,6 +1,14 @@
 angular.module('app.controllers')
 
-.controller('denunciaUnEventoCtrl', function ($scope, $stateParams, $ionicPlatform, $timeout,  $cordovaGeolocation, firebase) {
+.controller('denunciaUnEventoCtrl', function ($scope, $stateParams, $ionicPlatform, $timeout, $cordovaDatePicker, $cordovaGeolocation, firebase) {
+/*
+	bower install ion-datetime-picker --save
+
+	'ion-datetime-picker'
+
+    <script src="lib/ion-datetime-picker/release/ion-datetime-picker.min.js"></script>
+    <link href="lib/ion-datetime-picker/release/ion-datetime-picker.min.css" rel="stylesheet">
+*/
 	$scope.tipos = [
 		{
 			name: 'Accidente',
@@ -20,11 +28,14 @@ angular.module('app.controllers')
 		}
 	];
 
+	$scope.opciones = {};
 	$scope.denuncia = {};
 	//El usuario debería tomarse desde el rootscope donde tiene información del usuario logueado
 	$scope.denuncia.usuario = "Pepito el verdulero";
 	$scope.denuncia.ubicacionactual = {};
 	$scope.denuncia.lugar = {};
+	$scope.denuncia.fechaActual = $scope.denuncia.fechaSuceso = new Date();
+	$scope.opciones.esfechaactual = true;
 
 	try{
       $ionicPlatform.ready(function() {
@@ -55,24 +66,50 @@ angular.module('app.controllers')
 		        	}
 		      	})
 
-				$scope.denuncia.esubicacionactual = true;
+				$scope.opciones.esubicacionactual = true;
 		      	})
 		    }, function(err) {
 		    	console.error(err);
-				$scope.denuncia.esubicacionactual = false;
+				$scope.opciones.esubicacionactual = false;
 		    });
       });
   	}
   	catch(e){
   		console.error(e);
-		$scope.denuncia.esubicacionactual = false;
+		$scope.opciones.esubicacionactual = false;
   	}
+
+  	$scope.ElegirFecha = function(){
+	/*	if(!$scope.opciones.esfechaactual){
+		  	try{
+		  		$ionicPlatform.ready(function() {
+		  			var options = {
+					    date: new Date(),
+					    mode: 'datetime', // or 'time'
+					    minDate: new Date() - 10000,
+					    allowFutureDates: false,
+					    doneButtonLabel: 'DONE',
+					    doneButtonColor: '#F2F3F4',
+					    cancelButtonLabel: 'CANCEL',
+					    cancelButtonColor: '#000000'
+					};
+
+		  			$cordovaDatePicker.show(options).then(function(date){
+				        alert(date);
+				    });
+		  		});
+		  	}
+		  	catch(e){
+		  		console.error(e);
+		  	}
+	    }
+  	*/}
 
   	$scope.TraerCoordenadas = function(){
   		var request = {
-        	'address': $scope.denuncia.lugar.name
+        	address: $scope.denuncia.lugar.name
       	};
-
+      	console.info(request);
       	var geocoder = new google.maps.Geocoder();
       	$timeout(function(){
       		geocoder.geocode(request, function(data, status) {
@@ -94,6 +131,10 @@ angular.module('app.controllers')
   	}
 
   	$scope.Denunciar = function(){
+  		$scope.denuncia.fechaActual = new Date();
+  		if($scope.esubicacionactual){
+  			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
+  		}
 		console.info($scope.denuncia);
 		var referencia = firebase.database().ref('denuncias');
   		var referenciaFirebase = referencia.push();
