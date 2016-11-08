@@ -5,7 +5,14 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','ngMap', 'ngCordova', 'ionic.cloud', 'ion-datetime-picker'])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','ngMap', 'ngCordova', 'ionic.cloud',
+    'ui.grid',
+    'ui.grid.pagination',
+    'ui.grid.resizeColumns',
+    'ui.grid.selection',
+    'ui.grid.exporter',
+    'ui.grid.edit',
+    'ion-datetime-picker'])
 
 .config(function($ionicConfigProvider, $ionicCloudProvider){
   $ionicCloudProvider.init({
