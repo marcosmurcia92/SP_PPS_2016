@@ -1,14 +1,7 @@
 angular.module('app.controllers')
 
 .controller('denunciaUnEventoCtrl', function ($scope, $stateParams, $ionicPlatform, $timeout, $cordovaDatePicker, $cordovaGeolocation, firebase) {
-/*
-	bower install ion-datetime-picker --save
 
-	'ion-datetime-picker'
-
-    <script src="lib/ion-datetime-picker/release/ion-datetime-picker.min.js"></script>
-    <link href="lib/ion-datetime-picker/release/ion-datetime-picker.min.css" rel="stylesheet">
-*/
 	$scope.tipos = [
 		{
 			name: 'Accidente',
@@ -80,7 +73,7 @@ angular.module('app.controllers')
   	}
 
   	$scope.ElegirFecha = function(){
-	/*	if(!$scope.opciones.esfechaactual){
+		if(!$scope.opciones.esfechaactual){
 		  	try{
 		  		$ionicPlatform.ready(function() {
 		  			var options = {
@@ -103,7 +96,7 @@ angular.module('app.controllers')
 		  		console.error(e);
 		  	}
 	    }
-  	*/}
+  	}
 
   	$scope.TraerCoordenadas = function(){
   		var request = {
