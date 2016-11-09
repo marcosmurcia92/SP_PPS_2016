@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
- .controller('ingresoCtrl',  function($scope, $ionicModal, $timeout, $ionicGoogleAuth, $ionicUser, $ionicAuth, $ionicPlatform){
+ .controller('ingresoCtrl',  function($scope, $ionicModal, $timeout, $ionicGoogleAuth, $ionicUser, $ionicAuth, $ionicPlatform, SrvFirebase, UsuarioDelorean){
 
   $scope.loginData = {};
   $scope.VerLogin = true; //Variable booleana para cambiar de vista
@@ -8,6 +8,7 @@ angular.module('app.controllers')
   $scope.loginData.username = "";
   $scope.usuarioGoogle = {};
   $scope.usuarioGithub = {};
+  $scope.respuestaToken = {};
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
@@ -154,57 +155,266 @@ angular.module('app.controllers')
     });
 
   };*/
+$scope.GoogleLogin = function(){
 
-  $scope.GoogleLogin = function(){
+    if (window.cordova) { // Si esta en el celular.
 
-    $ionicPlatform.ready(function() {
+      $ionicPlatform.ready(function() {
 
-      $timeout(function (){
+        $timeout(function (){
 
-        $ionicAuth.login('google')
-          .then(function (respuesta){
+          $ionicAuth.login('google')
+            .then(function (respuesta){
 
-            $scope.usuarioGoogle = $ionicUser.social.google.data;
+              $scope.usuarioGoogle = $ionicUser.social.google.data;
+              $scope.respuestaToken = $ionicUser.social.google.data;
 
-          }).catch(function (error){
+              TraerUsuario();
 
-            $scope.usuarioGoogle = error;
+            }).catch(function (error){
 
-          })
+              $scope.usuarioGoogle = error;
 
-      })
+            })
+
+        })
       
+      });
+
+    } else { //Si esta en la web.
 
 
-    });
+      if (!firebase.auth().currentUser) { //Si no esta logueado
+        var provider = new firebase.auth.GoogleAuthProvider();
 
-  };
+        provider.addScope('https://www.googleapis.com/auth/plus.login');
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+
+          if (result.credential) {
+            var token = result.credential.accessToken;
+          };
+          //var token = result.credential.accessToken;
+          var user = result.user;
+
+          $scope.respuestaToken = result.user;
+
+          console.log($scope.respuestaToken);
+
+          TraerUsuario();
+
+        }).catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          alert(error);
+          var credential = error.credential;
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('Ya estas registrado con un proveedor diferente para ese email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            alert(error);
+          }
+        });
+
+      } else {
+
+        firebase.auth().signOut();
+        UsuarioDelorean.login("", "", false);
+      }
+
+    } //Fin Google Web
+
+    
+
+  }; //Fin login Google
 
 
   $scope.GitHubLogin = function(){
 
-  	console.log("GITHUB LOGIN");
+    if (window.cordova) { //Si esta en el celular
 
-    $ionicPlatform.ready(function() {
+      $ionicPlatform.ready(function() {
 
-      $timeout(function (){
+        $timeout(function (){
 
-      $ionicAuth.login('github')
-        .then(function (respuesta){
+        $ionicAuth.login('github')
+          .then(function (respuesta){
 
-          $scope.usuarioGithub = $ionicUser.social.github.data;
+            $scope.usuarioGithub = $ionicUser.social.github.data;
+            $scope.respuestaToken = $ionicUser.social.github.data;
+            
+            TraerUsuario();
 
-        }).catch(function (error){
+          }).catch(function (error){
 
-          $scope.usuarioGithub = error;
+            $scope.usuarioGithub = error;
+
+          })
 
         })
 
-      })
+      });
 
-    });
+    } else { //Si esta en la web
 
-  };
+      if (!firebase.auth().currentUser) { //Si no esta logueado
+
+        var provider = new firebase.auth.GithubAuthProvider();
+
+        provider.addScope('repo');
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+
+          var token = result.credential.accessToken;
+
+          var user = result.user;
+
+          $scope.respuestaToken = result.user;
+
+          console.log($scope.respuestaToken);
+
+          TraerUsuario();
+
+        }).catch(function(error) {
+
+          var errorCode = error.code;
+          var errorMessage = error.message;
+
+          var email = error.email;
+
+          var credential = error.credential;
+          alert(error);
+            var credential = error.credential;
+            if (errorCode === 'auth/account-exists-with-different-credential') {
+              alert('Ya estas registrado con un proveedor diferente para ese email.');
+              // If you are using multiple auth providers on your app you should handle linking
+              // the user's accounts here.
+            } else {
+              alert(error);
+            }
+        });
+
+      } else{
+
+        firebase.auth().signOut();
+        UsuarioDelorean.login("", "", false);
+
+      }
+
+    } //Fin GitHub Web
+
+  }; //Fin login Github
+
+
+  function TraerUsuario(){
+
+    $timeout(function (){
+
+      var usuarioBD = {};
+
+      SrvFirebase.RefUsuarios().on('child_added', function Recorrer(snapshot){
+
+        /*Esto, al ser asincronico es lo ultimo que se ejecuta...
+         Asique si ANTES de agregar un usuario quiero comprobar si existe ese usuario en la base
+         (Y esto se ejecuta al final) entonces el agregado del usuario a la base
+         tiene que ser en este metodo, una vez que yo ya comprobe si existe o no ese usuario en la base.
+         Pero no puedo agregar al usuario cada vez que recorro un elemento de la lista (on(child_added)).
+         Para ello, lo que hice fue en obtener el ultimo elemento de la lista (limitToLast - Ver mas abajo).
+         Dicho sea de paso, lo obtengo cada vez que leo un usuario (Eso es lo malo). 
+         De cualquier forma, cuando obtengo el ultimo
+         elemento de la lista lo comparo con el elemento que estoy recorriendo actualmente.
+         Si concide significa que estoy en el ultimo elemento de la lista.
+         Entonces si estoy en el ultimo elemento de la lista y el factory UsuarioDelorean
+         continua sin inicializarse significa que el usuario no esta en la base. 
+         Una vez alli, se agrega el elemento a la base.*/
+
+        if ($scope.respuestaToken.email != null) {
+
+          alert($scope.respuestaToken.email);
+
+        } else {
+
+          alert($scope.respuestaToken.username);
+
+        }
+
+        if (snapshot.val() != null && $scope.respuestaToken.email != null) {
+
+          usuarioBD = snapshot.val();
+
+          console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
+
+          if (usuarioBD.email == $scope.respuestaToken.email) {
+
+            UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, "NO");
+
+          }
+
+        } else if (snapshot.val() != null && $scope.respuestaToken.username != null) { //SE pone else if porque Google mobile me devuelve Email y Username
+
+          usuarioBD = snapshot.val();
+
+          console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
+
+          if (usuarioBD.nombre == $scope.respuestaToken.username) {
+
+            UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, "NO");
+
+          };
+
+        }
+
+        
+
+
+        SrvFirebase.RefUsuarios().limitToLast(1).on('child_added', function (snapshot){
+
+          var ultimoUsuario = snapshot.val(); //ACa obtengo al ultimo usuario... Este se hace cada vez que se ejecuta el child_added de arriba!!!
+
+          console.info("Yo soy el ultimo usuario", ultimoUsuario);
+
+          if (usuarioBD.mail == ultimoUsuario.mail) {
+
+            var usuario = JSON.parse(UsuarioDelorean.getFullData());
+
+
+            if (usuario.email == "") { //Si No se encontro al usuario en la base de datos.
+
+              if ($scope.respuestaToken.email != null) {
+
+                UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, "NO"); //Aca Se inicializa al usuario cuando se loguea con Google WEB, Google Mobile o GitHub Web
+
+              } else if ($scope.respuestaToken.username != null) {
+
+                UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, "NO"); //Aca se inicializa al usuario cuando se loguea con GitHub Mobile.
+
+              }
+
+              console.log(UsuarioDelorean.getFullData());
+
+              usuario = JSON.parse(UsuarioDelorean.getFullData());
+
+              SrvFirebase.RefUsuarios().push(usuario); //Como el usuario no estaba en la base de datos, se sube.
+
+              SrvFirebase.RefUsuarios().off('child_added', Recorrer); //Como hice un push, se volveria a disparar el child_added 'Recorrer'.. Esto lo detiene.
+
+            }
+
+          };
+
+        }) //fin limitToLast
+
+
+      }) //fin child_added
+
+      
+
+    }) //Fin timeout
+
+  } //Fin Traer Usuario
 
 
 
