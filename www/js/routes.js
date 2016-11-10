@@ -42,6 +42,7 @@ angular.module('app.routes', [])
 
   .state('menu.grillaAdmin', {
     url: '/grillaAdmin',
+     cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/grillaAdministrador.html',
