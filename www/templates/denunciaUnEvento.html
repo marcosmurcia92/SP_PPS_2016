@@ -10,7 +10,7 @@
 	    	  	Tipo de reclamo
 	    	</div>
 	    	<select>
-	      		<option ng-repeat="tipo in tipos" value="tipo.value" ng-model="denuncia.tipo">{{tipo.name}}</option>
+	      		<option ng-repeat="tipo in tipos" value="tipo.value" ng-model="denuncia.tipoReclamo">{{tipo.name}}</option>
 	    	</select>
   	  	</label>
 		<label class="item item-input">
@@ -24,13 +24,13 @@
 			¿El incidente sucedió recién?<ion-checkbox ng-model="opciones.esfechaactual" style="float:right" ng-change="ElegirFecha()">
 		</label>
 		<label class="item item-input">
-			<input type="datetime-local" ng-model="denuncia.fechaActual" disabled ng-show="opciones.esfechaactual">
-			<!--<ion-list ng-show="!opciones.esfechaactual">
-			    <div class="item" ion-datetime-picker ng-model="datetimeValue" only-valid="{'before': fenuncia.fechaActual, 'inclusive': true}">
+			<input type="datetime-local" ng-model="denuncia.fechaIngreso" disabled ng-show="opciones.esfechaactual">
+			<ion-list ng-show="!opciones.esfechaactual">
+			    <div class="item" ion-datetime-picker ng-model="datetimeValue" only-valid="{'before': denuncia.fechaIngreso, 'inclusive': true}">
 			        {{datetimeValue| date: "yyyy-MM-dd H:mm"}}
 			    </div>
-			</ion-list>-->
-			<input type="datetime-local" placeholder="Ingrese fecha y hora del incidente" ng-model="denuncia.fechaSuceso" ng-show="!opciones.esfechaactual">
+			</ion-list>
+			<!--<input type="datetime-local" placeholder="Ingrese fecha y hora del incidente" ng-model="denuncia.fechaSuceso" ng-show="!opciones.esfechaactual">-->
 		</label>
 		<label class="item item-input">
 			¿Requiere presencia policial?<ion-checkbox ng-model="denuncia.requierepolicia" style="float:right">

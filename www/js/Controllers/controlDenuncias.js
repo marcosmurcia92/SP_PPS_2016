@@ -27,7 +27,7 @@ angular.module('app.controllers')
 	$scope.denuncia.usuario = "Pepito el verdulero";
 	$scope.denuncia.ubicacionactual = {};
 	$scope.denuncia.lugar = {};
-	$scope.denuncia.fechaActual = $scope.denuncia.fechaSuceso = new Date();
+	$scope.denuncia.fechaIngreso = $scope.denuncia.fechaSuceso = new Date();
 	$scope.opciones.esfechaactual = true;
 
 	try{
@@ -124,10 +124,11 @@ angular.module('app.controllers')
   	}
 
   	$scope.Denunciar = function(){
-  		$scope.denuncia.fechaActual = new Date();
+  		$scope.denuncia.fechaIngreso = new Date();
   		if($scope.esubicacionactual){
   			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
   		}
+  		$scope.denuncia.estado = 'Pendiente';
 		console.info($scope.denuncia);
 		var referencia = firebase.database().ref('denuncias');
   		var referenciaFirebase = referencia.push();
