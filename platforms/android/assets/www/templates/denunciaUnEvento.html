@@ -1,0 +1,36 @@
+<ion-view title="Denuncia un Evento" id="page1" style="background-color:#F3C446;">
+  <ion-nav-buttons side="left" class="has-header">
+    <button class="button button-icon icon ion-flag"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" style="background: url(img/JkULuRRTT6FrTAXoGl8g_andygeeart.jpeg) no-repeat center;background-size:cover;" class="has-header">
+  	
+  	<div class="list formulario">
+	  	<label class="item item-input item-select">
+		    <div class="input-label">
+	    	  	Tipo de reclamo
+	    	</div>
+	    	<select>
+	      		<option ng-repeat="tipo in tipos" value="tipo.value" ng-model="denuncia.tipo">{{tipo.name}}</option>
+	    	</select>
+  	  	</label>
+		<label class="item item-input">
+			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="denuncia.esubicacionactual" style="float:right">
+		</label>
+		<label class="item item-input">
+			<input type="text" ng-model="denuncia.ubicacionactual.nombre" disabled ng-show="denuncia.esubicacionactual">
+			<input type="text" placeholder="Ingrese lugar del incidente" ng-model="denuncia.lugar" ng-show="!denuncia.esubicacionactual">
+		</label>
+		<label class="item item-input">
+			¿Requiere presencia policial?<ion-checkbox ng-model="denuncia.requierepolicia" style="float:right">
+		</label>
+	  	<label class="item item-input large">
+	    	<textarea placeholder="Información adicional" ng-model="denuncia.adicional"></textarea>
+	  	</label>
+
+	  	<button class="button button-block button-energized">
+		  Ingresar denuncia
+		</button>
+	</div>
+
+  </ion-content>
+</ion-view>

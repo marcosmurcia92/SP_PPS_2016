@@ -1,0 +1,28 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-dark">
+      <ion-nav-back-button></ion-nav-back-button>
+      <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="side-menu21"></ion-nav-view>
+  </ion-side-menu-content>
+  <ion-side-menu side="right" id="side-menu21" style="background-color:#656A78;">
+    <ion-header-bar class="bar-calm">
+      <div class="title">Menu</div>
+    </ion-header-bar>
+    <ion-content padding="false" class="side-menu-right has-header ">
+      <ion-list id="menu-list1">
+        <ion-item class="item-icon-left light  menuItem" id="menu-list-item1" ui-sref="ingreso" menu-close="">
+          Login</ion-item>
+        <ion-item class="item-icon-left light  menuItem" id="menu-list-item1" ui-sref="menu.denunciaUnEvento" menu-close="">
+          <i class="icon ion-flag"></i>Denunciar un Evento</ion-item>
+        <ion-item class="item-icon-left light" id="menu-list-item2" ui-sref="menu.mapaDeDenuncias" menu-close="">
+          <i class="icon ion-map"></i>Mapa de Denuncias</ion-item>
+        <ion-item class="item-icon-left light" id="menu-list-item3" ui-sref="menu.contactanos" menu-close="">
+          <i class="icon ion-help"></i>Contactanos</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

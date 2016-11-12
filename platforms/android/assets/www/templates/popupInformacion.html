@@ -1,0 +1,14 @@
+<div>
+	<ion-list  style="width: auto" id="">
+	<ion-item class="energized"  style="background-color:rgba(3, 97, 154, 0.64)">Enviado por: 
+	<h2 class="texto">{{informacion.usuario}}</h2>
+</ion-item>
+<ion-item class="energized" style="background-color:rgba(3, 97, 154, 0.64)" >Fecha del accidente:   
+<h2 class="texto">{{informacion.fecha}}</h2>
+</ion-item>
+<ion-item class="energized" style="background-color:rgba(3, 97, 154, 0.64);  white-space:pre-line" >Descripcion: 
+<ion-textarea [(ngModel)]="msg" class="texto" >{{informacion.descripcion}}</ion-textarea> 
+</ion-item>
+</ion-list>
+
+</div>

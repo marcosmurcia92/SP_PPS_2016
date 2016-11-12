@@ -1,0 +1,33 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-googleplus": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        }
+    },
+    "dependent_plugins": {}
+}

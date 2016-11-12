@@ -1,0 +1,27 @@
+div.formulario{
+	background-color: white;
+	opacity: 0.8;
+	color:black;
+	margin: 10%;
+}
+.formulario label{
+	display:block;
+}
+
+.large {
+	height:100px;
+}
+.large textarea{
+	height:90px;
+}
+.item-checkbox{
+	border:0px;
+}
+.formulario button{
+	width:94%;
+	margin-left:3%;
+}
+.formulario .range span {
+	width:40%;
+	float:left;
+}
