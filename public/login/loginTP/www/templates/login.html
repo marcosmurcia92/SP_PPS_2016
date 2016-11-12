@@ -1,0 +1,77 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Login</h1>
+    <div class="buttons">
+      <!--<button class="button button-clear" ng-click="closeLogin()">Close</button>-->
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <!-- Form Login. La variable habilitado se usa para mostrar el spinner y bloquear los controles del formulario mientras esto sucede-->
+    <form name="FormLogin" ng-show="VerLogin">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label" ng-disabled="!habilitado">Email</span>
+          <input type="email" ng-model="loginData.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label" ng-disabled="!habilitado">Password</span>
+          <input type="password" ng-model="loginData.password">
+        </label>
+        
+        <label class="item">
+          <button class="button button-block button-positive" ng-click="LogIn()" ng-show="habilitado" ng-disabled="!loginData.username || !loginData.password">Log in</button>
+          <center><ion-spinner icon="android" ng-show="!habilitado"></ion-spinner></center>
+        </label>
+
+        <label class="item">
+          <button class="button button-block button-balanced" ng-click="GoRegistrar()" ng-disabled="!habilitado">Registrarse</button>
+        </label>
+
+        <a ng-click="OlvidePassword()" style="cursor:pointer;padding:10px 6px;display:block;text-align:right" ng-hide="!habilitado">Olvide mi Password</a>
+        <!-- Se utiliza ng-hide dado que ng-disabled no funciona en etiquetas a. La funcion de este ng-hide es impedir enviar mail de reestablecimiento de contraseña cuando el logueo este en proceso. -->
+
+        <button class="button button-block button-assertive" ng-click="GoogleLogin()" ng-disabled="!habilitado"> <i class="ion-social-googleplus-outline"></i> Login con Google</button>
+
+        <button class="button button-block button-dark" ng-click="GitHubLogin()" ng-disabled="!habilitado"> <i class="ion-social-github"></i> Login con GitHub</button>
+      </div>
+    </form>
+    
+    <!-- Form Registro-->
+    <form name="FormRegistro" ng-show="!VerLogin">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" ng-model="registerData.username" ng-disabled="!habilitadoRegister" required>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="registerData.password" ng-disabled="!habilitadoRegister" required>
+        </label>
+        <label class="item" ng-if="registerData.password.length < 6">
+          <span style="color:#FF0000;font-size:18;">* El Password debe tener al menos 6 caracteres</span>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Confirm Password</span>
+          <input type="password" ng-model="registerData.confirmPassword" ng-disabled="!habilitadoRegister" required>
+        </label>
+        <label class="item" ng-if="registerData.password != registerData.confirmPassword">
+          <span style="color:#FF0000;font-size:18;">* Las claves no coinciden</span> 
+        </label>
+        <label class="item">  
+          <button class="button button-block button-balanced" ng-disabled="FormRegistro.$invalid || registerData.password != registerData.confirmPassword || registerData.password.length < 6" ng-click="Registrarse()" ng-show="habilitadoRegister">Sign Up!</button>
+          <center><ion-spinner icon="android" ng-show="!habilitadoRegister"></ion-spinner></center>
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" ng-click="GoLogin()" ng-disabled="!habilitadoRegister">Volver a Login</button>
+        </label>
+      </div>
+    </form>
+    
+    <h3>Usuario Google</h3>
+    <pre><code>{{usuarioGoogle}}</code></pre>
+    
+
+    <h3>Usuario Github</h3>
+    <pre><code>{{usuarioGithub}}</code></pre>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,49 @@
+<ion-view title="Contactanos" id="page3" style="background-color:#FFFFFF;">
+  	<ion-nav-buttons side="left" class="has-header">
+    	<button class="button button-icon icon ion-help"></button>
+  	</ion-nav-buttons>
+  	<ion-content padding="true" style="background: url(img/ToxU5zmRSaC46MuUviag_andygeeart.jpeg) no-repeat center;background-size:cover;" class="has-header">
+	  	<div class="list formulario">
+		  	<label class="item item-input item-select">
+			    <div class="input-label">
+		    	  	Motivo del contacto
+		    	</div>
+		    	<select>
+		      		<option ng-repeat="motivo in motivos" value="motivo.value" ng-model="contacto.motivo">{{motivo.name}}</option>
+		    	</select>
+	  	  	</label>
+	  	  	<label class="item item-input item-select" ng-show="contacto.motivo.value == undefined">
+			    <div class="input-label">
+		    	  	Denuncia realizada
+		    	</div>
+		    	<select>
+		      		<option ng-repeat="denuncia in denunciasrealizadas" value="denuncia.id" ng-model="contacto.valoracion.denuncia">{{denuncia.name}}</option>
+		    	</select>
+	  	  	</label>
+	  		<div class="item range">
+	  			<span>Velocidad de atención</span>
+		  		<i class="icon ion-sad-outline"></i>
+		  			<input type="range" name="volume" step="20">
+		  		<i class="icon ion-happy-outline"></i>
+			</div>
+			<div class="item range">
+	  			<span>Predisposición</span>
+		  		<i class="icon ion-sad-outline"></i>
+		  			<input type="range" name="volume" step="20">
+		  		<i class="icon ion-happy-outline"></i>
+			</div>
+			<div class="item range">
+	  			<span>Valoración del personal</span>
+		  		<i class="icon ion-sad-outline"></i>
+		  			<input type="range" name="volume" step="20">
+		  		<i class="icon ion-happy-outline"></i>
+			</div>
+		  	<label class="item item-input large">
+		    	<textarea placeholder="Descripción" ng-model="contacto.descripcion"></textarea>
+		  	</label>
+		  	<button class="button button-block button-assertive">
+			  Enviar reclamo
+			</button>
+		</div>
+	</ion-content>
+</ion-view>
