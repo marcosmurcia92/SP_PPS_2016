@@ -11,6 +11,8 @@ Nombre de Equipo:
  - Federico Santamaria
  - Juan Giusti
  - Diana Man
+ 
+### URL de Firebase: https://autopistasdelorian-ea30b.firebaseapp.com
 
 ### Tareas del equipo:
  - Login y Register: Juan Giusti
