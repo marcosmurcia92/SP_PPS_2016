@@ -30,7 +30,7 @@ angular.module('app.controllers')
     if(!UsuarioDelorean.isAdmin()){
         $ionicPopup.alert({
            template: "<style>.popup {width: 200px !important; height:200px;}  </style> ",
-           title: 'Usted no eres  administrador',
+           title: 'Usted no es administrador',
            template: 'No puedes ver la grilla, lo siento'
        });
         $ionicHistory.nextViewOptions({

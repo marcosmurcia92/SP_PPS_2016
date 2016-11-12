@@ -57,11 +57,11 @@ angular.module('app.routes', [])
     controller: 'menuCtrl'
   })
 
-  .state('ingreso', {
-     url: '/login',
-     templateUrl: 'templates/ingreso.html',
-     controller: 'ingresoCtrl'
-   })
+  // .state('ingreso', {
+  //    url: '/login',
+  //    templateUrl: 'templates/ingreso.html',
+  //    controller: 'ingresoCtrl'
+  //  })
 
 $urlRouterProvider.otherwise('/side-menu21/nuevaDenuncia')
 

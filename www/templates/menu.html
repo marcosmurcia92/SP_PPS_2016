@@ -14,15 +14,17 @@
     </ion-header-bar>
     <ion-content padding="false" class="side-menu-right has-header ">
       <ion-list id="menu-list1">
-        <ion-item class="item-icon-left light  menuItem" id="menu-list-item1" ui-sref="ingreso" menu-close="">
-          Login</ion-item>
+        <!-- <ion-item class="item-icon-left light  menuItem" id="menu-list-item1" menu-close="">
+          Login</ion-item> -->
+          <ion-item class="item-icon-left assertive  menuItem" id="menu-list-item1" menu-close="" ng-click="Logout()">
+          Logout</ion-item>
         <ion-item class="item-icon-left light  menuItem" id="menu-list-item1" ui-sref="menu.denunciaUnEvento" menu-close="">
           <i class="icon ion-flag"></i>Denunciar un Evento</ion-item>
         <ion-item class="item-icon-left light" id="menu-list-item2" ui-sref="menu.mapaDeDenuncias" menu-close="">
           <i class="icon ion-map"></i>Mapa de Denuncias</ion-item>
         <ion-item class="item-icon-left light" id="menu-list-item3" ui-sref="menu.contactanos" menu-close="">
           <i class="icon ion-help"></i>Contactanos</ion-item>
-        <ion-item class="item-icon-left light" id="menu-list-item4" ui-sref="menu.grillaAdmin" menu-close="">
+        <ion-item class="item-icon-left light" ng-if="(usuarioActual.isAdmin())" id="menu-list-item4" ui-sref="menu.grillaAdmin" menu-close="">
           <i class="icon ion-ios-grid-view"></i>Grilla de Administrador</ion-item>
       </ion-list>
     </ion-content>

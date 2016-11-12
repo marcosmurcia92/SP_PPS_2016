@@ -1,4 +1,11 @@
-<ion-view title="Ingreso" id="page4">
+<ion-modal-view ng-controller="ingresoCtrl">
+  <ion-header-bar>
+    <h1 class="title">Login</h1>
+    <!-- <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+    </div> -->
+  </ion-header-bar>
+<!-- <ion-view title="Ingreso" id="page4"> -->
   <ion-content padding="true" style="background: url(img/s7uuCgTDCYVx1syhhG1A_andygeeart.jpeg) no-repeat center;background-size:cover;" >
 
     <form name="FormLogin" ng-show="VerLogin">
@@ -61,12 +68,13 @@
       </div>
     </form>
     
-    <h3>Usuario Google</h3>
+    <!-- <h3>Usuario Google</h3>
     <pre><code>{{usuarioGoogle}}</code></pre>
     
 
     <h3>Usuario Github</h3>
-    <pre><code>{{usuarioGithub}}</code></pre>
+    <pre><code>{{usuarioGithub}}</code></pre> -->
 
   </ion-content>
-</ion-view>
+<!-- </ion-view> -->
+</ion-modal-view>

@@ -13,7 +13,7 @@ angular.module('app.services', [])
 		login:function(name,mail,admin){
 			nombre = name;
 			email = mail;
-			soyAdmin = (admin == "SI");
+			soyAdmin = admin;
 		},getName:function(){
 			return nombre;
 		},getEmail:function(){

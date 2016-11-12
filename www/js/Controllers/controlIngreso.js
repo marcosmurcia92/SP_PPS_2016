@@ -1,7 +1,8 @@
 angular.module('app.controllers')
 
- .controller('ingresoCtrl',  function($scope, $ionicModal, $timeout, $ionicGoogleAuth, $ionicUser, $ionicAuth, $ionicPlatform, SrvFirebase, UsuarioDelorean){
+ .controller('ingresoCtrl',  function($scope, $ionicModal, $timeout, $state, $ionicGoogleAuth, $ionicUser, $ionicAuth, $ionicPlatform, SrvFirebase, UsuarioDelorean){
 
+  $scope.holamundo = "HOLA!";
   $scope.loginData = {};
   $scope.VerLogin = true; //Variable booleana para cambiar de vista
   $scope.registerData = {};
@@ -10,8 +11,13 @@ angular.module('app.controllers')
   $scope.usuarioGithub = {};
   $scope.respuestaToken = {};
 
+
+  $scope.habilitado = true; //spinner login
+  $scope.habilitadoRegister = true; //spinner register
+
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
+    console.log("TRATO DE CERRARME");
     $scope.modal.hide();
   };
 
@@ -125,6 +131,8 @@ angular.module('app.controllers')
           console.log(firebase.auth().currentUser);
         }
         
+        $scope.respuestaToken = respuesta;
+        TraerUsuario();
       })
     })
 
@@ -202,6 +210,9 @@ $scope.GoogleLogin = function(){
           console.log($scope.respuestaToken);
 
           TraerUsuario();
+
+
+
 
         }).catch(function(error) {
           var errorCode = error.code;
@@ -349,7 +360,9 @@ $scope.GoogleLogin = function(){
 
           if (usuarioBD.email == $scope.respuestaToken.email) {
 
-            UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, "NO");
+            UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, usuarioBD.soyAdmin)
+
+            $scope.closeLogin();
 
           }
 
@@ -361,7 +374,9 @@ $scope.GoogleLogin = function(){
 
           if (usuarioBD.nombre == $scope.respuestaToken.username) {
 
-            UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, "NO");
+            UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, usuarioBD.soyAdmin)
+            
+            $scope.closeLogin();
 
           };
 
@@ -385,11 +400,11 @@ $scope.GoogleLogin = function(){
 
               if ($scope.respuestaToken.email != null) {
 
-                UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, "NO"); //Aca Se inicializa al usuario cuando se loguea con Google WEB, Google Mobile o GitHub Web
+                UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, false); //Aca Se inicializa al usuario cuando se loguea con Google WEB, Google Mobile o GitHub Web
 
               } else if ($scope.respuestaToken.username != null) {
 
-                UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, "NO"); //Aca se inicializa al usuario cuando se loguea con GitHub Mobile.
+                UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, false); //Aca se inicializa al usuario cuando se loguea con GitHub Mobile.
 
               }
 
@@ -400,6 +415,8 @@ $scope.GoogleLogin = function(){
               SrvFirebase.RefUsuarios().push(usuario); //Como el usuario no estaba en la base de datos, se sube.
 
               SrvFirebase.RefUsuarios().off('child_added', Recorrer); //Como hice un push, se volveria a disparar el child_added 'Recorrer'.. Esto lo detiene.
+
+
 
             }
 
@@ -418,20 +435,6 @@ $scope.GoogleLogin = function(){
 
 
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/ingreso.html', {
-    scope: $scope,
-    animation: 'slide-in-up',
-    focusFirstInput: true,
-    backdropClickToClose: false
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  $scope.$on('$ionicView.enter', function(e) {
-    $scope.modal.show();
-    $scope.habilitado = true; //spinner login
-    $scope.habilitadoRegister = true; //spinner register
-  })
+  
 
 });
