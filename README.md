@@ -22,17 +22,17 @@ Nombre de Equipo:
  - [ ] PUSH NOTIFICATIONS!
  - [X] Inicializacion de Servicios Basicos.
  - [X] Login con Google+, Github y Firebase (desde Android).
- - [ ] Asignacion de Tokens de registro a Firebase Auth.
- - [ ] Login con Google+ y Github desde Web.
- - [ ] Completar datos de Factory de Usuario.
- - [ ] Usuario guardado en Firebase.
+ - [X] Asignacion de Tokens de registro a Firebase Auth. (No funciono)
+ - [X] Login con Google+ y Github desde Web.
+ - [X] Completar datos de Factory de Usuario.
+ - [X] Usuario guardado en Firebase.
  - [X] Interfaz de Alta de Denuncias.
  - [X] Interfaz de Alta de Reclamos/Sugerencias.
  - [X] Mapa de Denuncias con Markers Personalizados.
  - [ ] Sincronizacion de Alta con Mapas en Firebase.
  - [ ] Diferenciar contenido accesible por clientes y administradores.
- - [ ] Grilla con Denuncias (Solo Administrador).
- - [ ] Grilla con Reclamos (Solo Administrador).
+ - [X] Grilla con Denuncias (Solo Administrador).
+ - [X] Grilla con Reclamos (Solo Administrador).
  - [ ] Graficos de Denuncias (Solo Administrador).
  - [ ] Graficos de Reclamos (Solo Administrador).
  - [ ] Pagina de Autores.
