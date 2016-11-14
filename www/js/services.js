@@ -34,7 +34,7 @@ angular.module('app.services', [])
 
 	this.RefUsuarios = RefUsuarios;
 	this.RefDenuncias = RefDenuncias;
-
+	this.RefReclamos=RefReclamos;
 	function ObtenerRef(coleccion){
 		return firebase.database().ref(coleccion);
 
@@ -45,11 +45,14 @@ angular.module('app.services', [])
 	}
 
 	function RefDenuncias(){
-		return ObtenerRef('denuncias');
+		return ObtenerRef('denuncias/');
 	}
 
 	function RefContactos(){
 		return ObtenerRef('contactos/');
+	}
+	function RefReclamos(){
+		return ObtenerRef('reclamos/');
 	}
 }])
 

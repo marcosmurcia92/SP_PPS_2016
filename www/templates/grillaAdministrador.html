@@ -5,20 +5,26 @@
 <button class="button button-icon icon ion-ios-grid-view"></button>
 </ion-nav-buttons>
 <ion-content padding="true" style="background: url(img/ToxU5zmRSaC46MuUviag_andygeeart.jpeg) no-repeat center;background-size:cover;  width:100%" class="has-header">
-<div  class="switch-button" style="top:25px; width:100%;"  ><span class="active"></span>
-	<button class="switch-button-case left active-case" ng-click="isLeft=true">Denuncias</button>
+<ion-spinner icon="circles" class="spinner-energized"  style="position: absolute; top:50px; width:100%; height: 500px"
+ng-show="(cantidadD==-1 || cantidadR==-1 ) ||( GDenucias.length<cantidadD || GReclamos.length<cantidadR) "></ion-spinner>
+
+
+
+<div  ng-show="GDenucias.length==cantidadD && GReclamos.length==cantidadR" class="switch-button" style="top:25px; width:100%;"  ><span class="active"></span>
+	<button  class="switch-button-case left active-case" ng-click="isLeft=true">Denuncias</button>
 	<button class="switch-button-case right" ng-click="isLeft=false ">Reclamos</button>
 </div>
-<div style="position: absolute; top:50px; width:100%; height: 500px">
-	<div ng-if="isLeft"   >
-		<h1 class="threeD">DENUNCIAS</h1>
-		<div ng-if="isLeft" id="grid1"  ui-grid="{ data: GDenucias }" class="grid" ></div>
+
+	<div ng-if="GDenucias.length==cantidadD && GReclamos.length==cantidadR" style="position: absolute; top:50px; width:100%; height: 500px">
+		<div ng-if="isLeft"   >
+			<h1 class="threeD">DENUNCIAS</h1>
+			<div ng-if="isLeft" id="grid1"  ui-grid="{ data: GDenucias }" class="grid" ></div>
+		</div>
+		<div ng-if="!isLeft" >
+			<h1 class="threeD">RECLAMOS</h1>
+			<div ng-if="!isLeft" id="grid2"  ui-grid="{ data: GReclamos }" class="grid"></div> 
+		</div>
 	</div>
-	<div ng-if="!isLeft" >
-		<h1 class="threeD">RECLAMOS</h1>
-		<div ng-if="!isLeft" id="grid2"  ui-grid="{ data: GReclamos }" class="grid"></div> 
-	</div>
-</div>
 
 
 </ion-content>

@@ -274,3 +274,9 @@
     6px 6px 0 #423e9e,
     7px 7px 0 #423e9e;
 }
+
+
+ .spinner svg {
+    width: 100%;
+    height: 158px;
+    }

@@ -42,9 +42,23 @@ angular.module('app.controllers')
     }
     $scope.isLeft=true;/*Esto es parte del diseño para ver si muestro  denuncia o reclamo */
     var referenciaDenuncia= SrvFirebase.RefDenuncias();
+
     $scope.GDenucias=[];
     $scope.GReclamos=[];
+    $scope.cantidadD=-1;
+    $scope.cantidadR=-1;
+    referenciaDenuncia.once('value', function(snap) {
+        $scope.cantidad=snap.numChildren();
+        $scope.cantidadD=snap.numChildren();
+        console.log(snap.numChildren());
+    });
 
+    SrvFirebase.RefReclamos().once('value', function(snap) {
+        $scope.cantidad=snap.numChildren();
+        $scope.cantidadR=snap.numChildren();
+        console.log(snap.numChildren());
+    });
+    /*Traigo  los datos de las denuncia  */ 
     referenciaDenuncia.on('child_added', function (snapshot) {
         $timeout(function(){
             var  denucia={};
@@ -53,6 +67,17 @@ angular.module('app.controllers')
             denucia.suceso= darFecha (new Date(message.fechaSuceso));
             denucia.requierePolicia= message.requierePolicia==true?"SI":"NO";
             $scope.GDenucias.push(denucia);
+        })
+
+    });
+
+    /*Traigo  los datos de los reclamos */
+    SrvFirebase.RefReclamos().on('child_added', function (snapshot) {
+        $timeout(function(){
+            var  denucia={};
+            var message = snapshot.val();
+            console.log(snapshot.val());
+            $scope.GReclamos.push(message);
         })
 
     });
