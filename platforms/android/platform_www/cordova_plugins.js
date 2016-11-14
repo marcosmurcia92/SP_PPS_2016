@@ -40,6 +40,14 @@ module.exports = [
         "clobbers": [
             "window.StatusBar"
         ]
+    },
+    {
+        "id": "cordova-plugin-fcm.FCMPlugin",
+        "file": "plugins/cordova-plugin-fcm/www/FCMPlugin.js",
+        "pluginId": "cordova-plugin-fcm",
+        "clobbers": [
+            "FCMPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -51,7 +59,8 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.0",
     "ionic-plugin-keyboard": "2.2.1",
     "cordova-plugin-whitelist": "1.3.0",
-    "cordova-plugin-statusbar": "2.2.0"
+    "cordova-plugin-statusbar": "2.2.0",
+    "cordova-plugin-fcm": "1.1.5"
 };
 // BOTTOM OF METADATA
 });

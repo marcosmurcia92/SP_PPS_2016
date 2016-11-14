@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "532187234213",
+    "firebase_url": "https://autopistasdelorian-ea30b.firebaseio.com",
+    "project_id": "autopistasdelorian-ea30b",
+    "storage_bucket": "autopistasdelorian-ea30b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532187234213:android:f44698059e7d05de",
+        "android_client_info": {
+          "package_name": "com.utnfra2016.AutopistasDelorean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532187234213-lbb3bk1h2avasoebl4j2v205kgo1lj5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRyQIVm_DD8L7QUpgRzdmWweVAlPT99cA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

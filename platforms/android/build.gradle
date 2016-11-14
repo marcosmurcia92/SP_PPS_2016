@@ -88,6 +88,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "cordova-plugin-fcm/autopistasdelorian696190-FCMPlugin.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -245,6 +246,7 @@ android {
 }
 
 dependencies {
+    classpath 'com.google.gms:google-services:3.0.0'
     compile fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     debugCompile project(path: "CordovaLib", configuration: "debug")

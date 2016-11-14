@@ -27,6 +27,9 @@
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-fcm": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
         }
     },
     "dependent_plugins": {}

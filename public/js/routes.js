@@ -51,6 +51,27 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('menu.graficosAdmin', {
+    url: '/graficosAdmin',
+     cache: false,
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/graficosAdministrador.html',
+        controller: 'graficosCtrl'
+      }
+    }
+  })
+
+  .state('menu.autores', {
+    url: '/autores',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/autores.html',
+        controller: 'autoresCtrl'
+      }
+    }
+  })
+
   .state('menu', {
     url: '/side-menu21',
     templateUrl: 'templates/menu.html',
