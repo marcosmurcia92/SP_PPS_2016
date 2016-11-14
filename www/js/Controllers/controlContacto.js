@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
-.controller('contactanosCtrl', function ($scope, $stateParams) {
+.controller('contactanosCtrl', function ($scope, $stateParams, firebase, UsuarioDelorean) {
 	//Traer por rootscope que se cargue cuando el usuario se loguea
 	//o cuando entra a la aplicación (estando ya logueado).
 	//El rootscope se debería cargar con los datos del usuario
@@ -35,8 +35,32 @@ angular.module('app.controllers')
 		}
 	];
 
-	$scope.contacto = {};
+	$scope.selected = 1;
+	$scope.contacto = {
+		motivo: 1,
+		denuncia: 167481,
+		velodad: '50',
+		predisposicion: '50',
+		personal:'75'
+	};
+	console.info($scope.contacto);
 
-	console.log($scope.contacto);
+	$scope.ElegirMotivo = function(selected) {
+		$scope.contacto.motivo = $scope.selected;
+		console.info(selected);
+	}
 
+	$scope.EnviarReclamo = function(){
+
+		$scope.contacto.usuario = UsuarioDelorean.getName();
+		
+		console.info($scope.contacto);
+
+		var referencia = firebase.database().ref('reclamos');
+  		var referenciaFirebase = referencia.push();
+  		referenciaFirebase.set($scope.contacto, function(respuesta){
+  			console.info(respuesta);
+  			alert('Se subió su reclamo');
+  		});
+	}
 });

@@ -25,12 +25,12 @@
 		</label>
 		<label class="item item-input">
 			<input type="datetime-local" ng-model="denuncia.fechaIngreso" disabled ng-show="opciones.esfechaactual">
-			<ion-list ng-show="!opciones.esfechaactual">
+			<ion-list ng-show="!opciones.esfechaactual && opciones.esmobile">
 			    <div class="item" ion-datetime-picker ng-model="datetimeValue" only-valid="{'before': denuncia.fechaIngreso, 'inclusive': true}">
 			        {{datetimeValue| date: "yyyy-MM-dd H:mm"}}
 			    </div>
 			</ion-list>
-			<!--<input type="datetime-local" placeholder="Ingrese fecha y hora del incidente" ng-model="denuncia.fechaSuceso" ng-show="!opciones.esfechaactual">-->
+			<input type="datetime-local" placeholder="Ingrese fecha y hora del incidente" ng-model="denuncia.fechaSuceso" ng-show="!opciones.esfechaactual && !opciones.esmobile">
 		</label>
 		<label class="item item-input">
 			¿Requiere presencia policial?<ion-checkbox ng-model="denuncia.requierepolicia" style="float:right">

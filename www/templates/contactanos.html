@@ -9,39 +9,39 @@
 		    	  	Motivo del contacto
 		    	</div>
 		    	<select>
-		      		<option ng-repeat="motivo in motivos" value="motivo.value" ng-model="contacto.motivo">{{motivo.name}}</option>
+		      		<option ng-repeat="motivo in motivos" ng-model="selected" ng-change="ElegirMotivo()">{{motivo.name}}</option>
 		    	</select>
 	  	  	</label>
-	  	  	<label class="item item-input item-select" ng-show="contacto.motivo.value == undefined">
+	  	  	<label class="item item-input item-select" ng-show="contacto.motivo == 1">
 			    <div class="input-label">
 		    	  	Denuncia realizada
 		    	</div>
 		    	<select>
-		      		<option ng-repeat="denuncia in denunciasrealizadas" value="denuncia.id" ng-model="contacto.valoracion.denuncia">{{denuncia.name}}</option>
+		      		<option ng-repeat="denuncia in denunciasrealizadas" value="denuncia.id" ng-model="contacto.denuncia">{{denuncia.name}}</option>
 		    	</select>
 	  	  	</label>
-	  		<div class="item range">
+	  		<div class="item range" ng-show="contacto.motivo == 1">
 	  			<span>Velocidad de atención</span>
 		  		<i class="icon ion-sad-outline"></i>
-		  			<input type="range" name="volume" step="20">
+		  			<input type="range" name="volume" step="25" ng-model="contacto.velocidad">
 		  		<i class="icon ion-happy-outline"></i>
 			</div>
-			<div class="item range">
+			<div class="item range" ng-show="contacto.motivo == 1">
 	  			<span>Predisposición</span>
 		  		<i class="icon ion-sad-outline"></i>
-		  			<input type="range" name="volume" step="20">
+		  			<input type="range" name="volume" step="25" ng-model="contacto.predisposicion">
 		  		<i class="icon ion-happy-outline"></i>
 			</div>
-			<div class="item range">
+			<div class="item range" ng-show="contacto.motivo == 1">
 	  			<span>Valoración del personal</span>
 		  		<i class="icon ion-sad-outline"></i>
-		  			<input type="range" name="volume" step="20">
+		  			<input type="range" name="volume" step="25" ng-model="contacto.personal">
 		  		<i class="icon ion-happy-outline"></i>
 			</div>
 		  	<label class="item item-input large">
 		    	<textarea placeholder="Descripción" ng-model="contacto.descripcion"></textarea>
 		  	</label>
-		  	<button class="button button-block button-assertive">
+		  	<button class="button button-block button-assertive" ng-click="EnviarReclamo()">
 			  Enviar reclamo
 			</button>
 		</div>

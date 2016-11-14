@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
-.controller('denunciaUnEventoCtrl', function ($scope, $stateParams, $ionicPlatform, $timeout, $cordovaDatePicker, $cordovaGeolocation, firebase) {
+.controller('denunciaUnEventoCtrl', function ($scope, $stateParams, $ionicPlatform, $timeout, $cordovaDatePicker, $cordovaGeolocation, firebase, SrvFirebase, UsuarioDelorean) {
 
 	$scope.tipos = [
 		{
@@ -24,14 +24,21 @@ angular.module('app.controllers')
 	$scope.opciones = {};
 	$scope.denuncia = {};
 	//El usuario debería tomarse desde el rootscope donde tiene información del usuario logueado
-	$scope.denuncia.usuario = "Pepito el verdulero";
+	$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
 	$scope.denuncia.ubicacionactual = {};
 	$scope.denuncia.lugar = {};
 	$scope.denuncia.fechaIngreso = $scope.denuncia.fechaSuceso = new Date();
 	$scope.opciones.esfechaactual = true;
 
+	//condicional para saber si es mobile (window.cordova == true) o no
+	//es utilizado por el cordovaDatePicker
+	$scope.opciones.esmobile = window.cordova ? true : false;
+	console.info($scope.opciones.esmobile);
+
 	try{
       $ionicPlatform.ready(function() {
+      		//lógica para la geolocalización
+
       		var posOptions = {timeout: 10000, enableHighAccuracy: true};
       	  	$cordovaGeolocation
 		    .getCurrentPosition(posOptions)
@@ -73,7 +80,8 @@ angular.module('app.controllers')
   	}
 
   	$scope.ElegirFecha = function(){
-		if(!$scope.opciones.esfechaactual){
+  		//funcionalidad que lanza el cordovadatetimepicker si la app corre en mobile
+		if(!$scope.opciones.esfechaactual && $scope.opciones.esmobile){
 		  	try{
 		  		$ionicPlatform.ready(function() {
 		  			var options = {
@@ -99,6 +107,7 @@ angular.module('app.controllers')
   	}
 
   	$scope.TraerCoordenadas = function(){
+  		//funcionalidad que utiliza la directiva googleplace para parsear la dirección a coordenadas
   		var request = {
         	address: $scope.denuncia.lugar.name
       	};
@@ -125,13 +134,20 @@ angular.module('app.controllers')
 
   	$scope.Denunciar = function(){
   		$scope.denuncia.fechaIngreso = new Date();
-  		if($scope.esubicacionactual){
+  		if($scope.opciones.esubicacionactual){
   			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
+  		}
+  		if($scope.opciones.esfechaactual){
+  			$scope.denuncia.fechaSuceso = $scope.denuncia.fechaIngreso;
   		}
   		$scope.denuncia.estado = 'Pendiente';
 		console.info($scope.denuncia);
 		var referencia = firebase.database().ref('denuncias');
+  		//var referencia = SrvFirebase.RefDenuncias();
   		var referenciaFirebase = referencia.push();
-  		referenciaFirebase.set($scope.denuncia);
+  		referenciaFirebase.set($scope.denuncia, function(respuesta){
+  			console.info(respuesta);
+  			alert('Se subió su denuncia');
+  		});
   	}
 })
