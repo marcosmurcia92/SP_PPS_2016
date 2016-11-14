@@ -9,9 +9,10 @@
 		    <div class="input-label">
 	    	  	Tipo de reclamo
 	    	</div>
-	    	<select>
+	    	<!--<select>
 	      		<option ng-repeat="tipo in tipos" value="tipo.value" ng-model="denuncia.tipoReclamo">{{tipo.name}}</option>
-	    	</select>
+	    	</select>-->
+	    	<select ng-model="denuncia.tipoReclamo" ng-options="tipo.value as tipo.name for tipo in tipos"></select>
   	  	</label>
 		<label class="item item-input">
 			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="opciones.esubicacionactual" style="float:right">

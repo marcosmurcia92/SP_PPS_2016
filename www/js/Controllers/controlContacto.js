@@ -39,19 +39,16 @@ angular.module('app.controllers')
 	$scope.contacto = {
 		motivo: 1,
 		denuncia: 167481,
-		velodad: '50',
+		velocidad: '50',
 		predisposicion: '50',
 		personal:'75'
 	};
 	console.info($scope.contacto);
 
-	$scope.ElegirMotivo = function(selected) {
-		$scope.contacto.motivo = $scope.selected;
-		console.info(selected);
-	}
-
 	$scope.EnviarReclamo = function(){
-
+		if($scope.contacto.motivo != 1){
+			$scope.contacto.denuncia = $scope.contacto.velocidad = $scope.contacto.predisposicion = $scope.contacto.personal= null;
+		}
 		$scope.contacto.usuario = UsuarioDelorean.getName();
 		
 		console.info($scope.contacto);

@@ -8,17 +8,16 @@
 			    <div class="input-label">
 		    	  	Motivo del contacto
 		    	</div>
-		    	<select>
-		      		<option ng-repeat="motivo in motivos" ng-model="selected" ng-change="ElegirMotivo()">{{motivo.name}}</option>
-		    	</select>
+		    	 <select ng-model="contacto.motivo" ng-options="motivo.value as motivo.name for motivo in motivos"></select>
 	  	  	</label>
 	  	  	<label class="item item-input item-select" ng-show="contacto.motivo == 1">
 			    <div class="input-label">
 		    	  	Denuncia realizada
 		    	</div>
-		    	<select>
+		    	<!--<select>
 		      		<option ng-repeat="denuncia in denunciasrealizadas" value="denuncia.id" ng-model="contacto.denuncia">{{denuncia.name}}</option>
-		    	</select>
+		    	</select>-->
+		    	<select ng-model="contacto.denuncia" ng-options="denuncia.id as denuncia.name for denuncia in denunciasrealizadas"></select>
 	  	  	</label>
 	  		<div class="item range" ng-show="contacto.motivo == 1">
 	  			<span>Velocidad de atención</span>
