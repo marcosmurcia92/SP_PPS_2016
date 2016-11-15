@@ -39,6 +39,10 @@
                         {
                             "xml": "<feature name=\"FCMPlugin\"><param name=\"android-package\" value=\"com.gae.scaffolder.plugin.FCMPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DeviceFeedback\"><param name=\"android-package\" value=\"cz.Velda.cordova.plugin.devicefeedback.DeviceFeedback\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -97,6 +101,9 @@
         },
         "cordova-plugin-fcm": {
             "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-velda-devicefeedback": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
         }
     },
     "dependent_plugins": {},
@@ -149,6 +156,14 @@
             "clobbers": [
                 "FCMPlugin"
             ]
+        },
+        {
+            "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
+            "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
+            "pluginId": "cordova-plugin-velda-devicefeedback",
+            "clobbers": [
+                "window.plugins.deviceFeedback"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -159,6 +174,7 @@
         "ionic-plugin-keyboard": "2.2.1",
         "cordova-plugin-whitelist": "1.3.0",
         "cordova-plugin-statusbar": "2.2.0",
-        "cordova-plugin-fcm": "1.1.5"
+        "cordova-plugin-fcm": "1.1.5",
+        "cordova-plugin-velda-devicefeedback": "0.0.2"
     }
 }

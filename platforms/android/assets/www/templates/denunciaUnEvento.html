@@ -9,16 +9,29 @@
 		    <div class="input-label">
 	    	  	Tipo de reclamo
 	    	</div>
-	    	<select>
-	      		<option ng-repeat="tipo in tipos" value="tipo.value" ng-model="denuncia.tipo">{{tipo.name}}</option>
-	    	</select>
+	    	<!--<select>
+	      		<option ng-repeat="tipo in tipos" value="tipo.value" ng-model="denuncia.tipoReclamo">{{tipo.name}}</option>
+	    	</select>-->
+	    	<select ng-model="denuncia.tipoReclamo" ng-options="tipo.value as tipo.name for tipo in tipos"></select>
   	  	</label>
 		<label class="item item-input">
-			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="denuncia.esubicacionactual" style="float:right">
+			¿El incidente ocurrió en donde se encuentra?<ion-checkbox ng-model="opciones.esubicacionactual" style="float:right">
 		</label>
 		<label class="item item-input">
-			<input type="text" ng-model="denuncia.ubicacionactual.nombre" disabled ng-show="denuncia.esubicacionactual">
-			<input type="text" placeholder="Ingrese lugar del incidente" ng-model="denuncia.lugar" ng-show="!denuncia.esubicacionactual">
+			<input type="text" ng-model="denuncia.ubicacionactual.nombre" disabled ng-show="opciones.esubicacionactual">
+			<input type="text" placeholder="Ingrese lugar del incidente" ng-model="denuncia.lugar.nombre" ng-show="!opciones.esubicacionactual" ng-blur="TraerCoordenadas()" googleplace>
+		</label>
+		<label class="item item-input">
+			¿El incidente sucedió recién?<ion-checkbox ng-model="opciones.esfechaactual" style="float:right" ng-change="ElegirFecha()">
+		</label>
+		<label class="item item-input">
+			<input type="datetime-local" ng-model="denuncia.fechaIngreso" disabled ng-show="opciones.esfechaactual">
+			<ion-list ng-show="!opciones.esfechaactual && opciones.esmobile">
+			    <div class="item" ion-datetime-picker ng-model="datetimeValue" only-valid="{'before': denuncia.fechaIngreso, 'inclusive': true}">
+			        {{datetimeValue| date: "yyyy-MM-dd H:mm"}}
+			    </div>
+			</ion-list>
+			<input type="datetime-local" placeholder="Ingrese fecha y hora del incidente" ng-model="denuncia.fechaSuceso" ng-show="!opciones.esfechaactual && !opciones.esmobile">
 		</label>
 		<label class="item item-input">
 			¿Requiere presencia policial?<ion-checkbox ng-model="denuncia.requierepolicia" style="float:right">
@@ -27,7 +40,7 @@
 	    	<textarea placeholder="Información adicional" ng-model="denuncia.adicional"></textarea>
 	  	</label>
 
-	  	<button class="button button-block button-energized">
+	  	<button class="button button-block button-energized" ng-click="Denunciar()">
 		  Ingresar denuncia
 		</button>
 	</div>

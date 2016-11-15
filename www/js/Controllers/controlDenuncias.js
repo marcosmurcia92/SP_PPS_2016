@@ -146,6 +146,7 @@ angular.module('app.controllers')
   		//var referencia = SrvFirebase.RefDenuncias();
   		var referenciaFirebase = referencia.push();
   		referenciaFirebase.set($scope.denuncia, function(respuesta){
+  			//SrvFirebase.EnviarNotificacion();
   			console.info(respuesta);
   			alert('Se subió su denuncia');
   		});

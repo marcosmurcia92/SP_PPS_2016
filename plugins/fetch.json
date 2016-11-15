@@ -64,5 +64,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-velda-devicefeedback": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-velda-devicefeedback"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

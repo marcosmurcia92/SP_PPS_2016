@@ -1,15 +1,22 @@
 angular.module('app.controllers')
 
-.controller('mapaDeDenunciasCtrl', function ($scope, $stateParams,NgMap,$ionicPopup,SrvFirebase,$timeout) {
+.controller('mapaDeDenunciasCtrl', function ($scope, $stateParams,NgMap,$ionicPopup,SrvFirebase,$timeout,UsuarioDelorean) {
+
+
 	var  usuario="Robertiño";
 	var  fecha="10/10/2016";
 	var urlImagen= "mg/mapa/marca";
 	var referenciaDenuncia= SrvFirebase.RefDenuncias();
+	$scope.cantidad=-1;
 	$scope.map = {};
 	$scope.map.name = "Alarmas";
 	$scope.map.latitud = -34.6671999;
 	$scope.map.longitud = -58.35926;
 	$scope.marcas = []; 
+	referenciaDenuncia.once('value', function(snap) {
+		$scope.cantidad=snap.numChildren();
+		console.log(snap.numChildren());
+	});
 	referenciaDenuncia.on('child_added', function (snapshot) {
 		$timeout(function(){
 			var message = snapshot.val();
@@ -25,10 +32,9 @@ angular.module('app.controllers')
 				case "":
 				break;
 			}
-
-
-			
 			$scope.marcas.push(message);
+			console.log($scope.marcas.length);
+
 		})
 
 	});
@@ -40,6 +46,7 @@ angular.module('app.controllers')
 		dato.fechaIngreso=  dia+"-"+ mes+"-"+ fecha.getFullYear();
 		$scope.informacion=dato;
 		$ionicPopup.alert({
+			template: "<style>.popup {width: 1000px !important; height:400px;} </style>",
 			templateUrl: 'templates/popupInformacion.html',
 			title: 'Informacion',
 			subTitle: 'Datos de lo que ha pasado',

@@ -31,6 +31,7 @@ buildscript {
     // and https://issues.apache.org/jira/browse/CB-8143
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
@@ -246,13 +247,12 @@ android {
 }
 
 dependencies {
-    classpath 'com.google.gms:google-services:3.0.0'
     compile fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     debugCompile project(path: "CordovaLib", configuration: "debug")
     releaseCompile project(path: "CordovaLib", configuration: "release")
-    compile "com.google.android.gms:play-services-auth:+"
-    compile "com.google.android.gms:play-services-identity:+"
+    compile "com.google.android.gms:play-services-auth:9.2.0"
+    compile "com.google.android.gms:play-services-identity:9.2.0"
     // SUB-PROJECT DEPENDENCIES END
 }
 

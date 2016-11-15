@@ -17,6 +17,7 @@ angular.module('app.controllers')
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
+    //FCMPlugin.subscribeToTopic('autopistasDelorean');
     console.log("TRATO DE CERRARME");
     $scope.modal.hide();
   };

@@ -22,6 +22,7 @@ angular.module('app.routes', [])
 
   .state('menu.mapaDeDenuncias', {
     url: '/mapa',
+     cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/mapaDeDenuncias.html',
@@ -40,17 +41,49 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('menu.grillaAdmin', {
+    url: '/grillaAdmin',
+     cache: false,
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/grillaAdministrador.html',
+        controller: 'grillaCtrl'
+      }
+    }
+  })
+
+  .state('menu.graficosAdmin', {
+    url: '/graficosAdmin',
+     cache: false,
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/graficosAdministrador.html',
+        controller: 'graficosCtrl'
+      }
+    }
+  })
+
+  .state('menu.autores', {
+    url: '/autores',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/autores.html',
+        controller: 'autoresCtrl'
+      }
+    }
+  })
+
   .state('menu', {
     url: '/side-menu21',
     templateUrl: 'templates/menu.html',
     controller: 'menuCtrl'
   })
 
-  .state('ingreso', {
-    url: '/login',
-    templateUrl: 'templates/ingreso.html',
-    controller: 'ingresoCtrl'
-  })
+  // .state('ingreso', {
+  //    url: '/login',
+  //    templateUrl: 'templates/ingreso.html',
+  //    controller: 'ingresoCtrl'
+  //  })
 
 $urlRouterProvider.otherwise('/side-menu21/nuevaDenuncia')
 
