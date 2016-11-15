@@ -12,7 +12,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     'ui.grid.selection',
     'ui.grid.exporter',
     'ui.grid.edit',
-    'ion-datetime-picker'])
+    'ion-datetime-picker',
+    'chart.js'])
 
 .config(function($ionicConfigProvider, $ionicCloudProvider){
   $ionicCloudProvider.init({
