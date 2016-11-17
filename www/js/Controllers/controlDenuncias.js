@@ -29,6 +29,8 @@ angular.module('app.controllers')
 	$scope.denuncia.lugar = {};
 	$scope.denuncia.fechaIngreso = $scope.denuncia.fechaSuceso = new Date();
 	$scope.opciones.esfechaactual = true;
+	$scope.denuncia.tipoReclamo = 2;
+
 
 	//condicional para saber si es mobile (window.cordova == true) o no
 	//es utilizado por el cordovaDatePicker
@@ -132,7 +134,9 @@ angular.module('app.controllers')
       	
   	}
 
+  	$scope.cargando = false;
   	$scope.Denunciar = function(){
+  		$scope.cargando = true;
   		$scope.denuncia.fechaIngreso = new Date();
   		if($scope.opciones.esubicacionactual){
   			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
@@ -145,9 +149,24 @@ angular.module('app.controllers')
 		var referencia = firebase.database().ref('denuncias');
   		//var referencia = SrvFirebase.RefDenuncias();
   		var referenciaFirebase = referencia.push();
-  		referenciaFirebase.set($scope.denuncia, function(respuesta){
-  			console.info(respuesta);
-  			alert('Se subió su denuncia');
+  		referenciaFirebase.set($scope.denuncia, function(error){
+  			var mensaje = '';
+
+  			if(error){
+  				mensaje = 'Ocurrió un problema al subir la denuncia. Intentelo más tarde.';
+  				console.error('Error denuncia: ', error);
+  			}
+  			else{
+  				mensaje = 'Denuncia ingresada correctamente. La denuncia se encuentra pendiente de aprobación';
+  				console.info('Denuncia: ', $scope.denuncia);
+  			}
+
+
+  			$timeout(function(){
+  				$scope.cargando = false;
+  				alert(mensaje);
+  			}, 1000);
+
   		});
   	}
 })
