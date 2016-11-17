@@ -13,27 +13,35 @@ angular.module('app.controllers')
 	$scope.map.latitud = -34.6671999;
 	$scope.map.longitud = -58.35926;
 	$scope.marcas = []; 
+	$scope.ArrayFiltros=[];
+	for (var i=0;i<6;i++) {
+		$scope.ArrayFiltros.push({estado:1});
+	};
 	referenciaDenuncia.once('value', function(snap) {
 		$scope.cantidad=snap.numChildren();
-		console.log(snap.numChildren());
 	});
 	referenciaDenuncia.on('child_added', function (snapshot) {
 		$timeout(function(){
 			var message = snapshot.val();
-			switch(message.tipoAccidente){
-				case "":
+			console.log(message.tipoReclamo);
+			message.mostrar=true;
+			switch(message.tipoReclamo){
+				case 1:
+				message.tipoReclamo="Accidente";
 				break;
-				case "":
+				case 2:
+				message.tipoReclamo="Averia";
 				break;
-				case "":
+				case 3:
+				message.tipoReclamo="Animal";
 				break;
-				case "":
+				case 4:
+				message.tipoReclamo="Ambulancia";
 				break;
-				case "":
+				case 5:
 				break;
 			}
 			$scope.marcas.push(message);
-			console.log($scope.marcas.length);
 
 		})
 
@@ -53,6 +61,38 @@ angular.module('app.controllers')
 			scope: $scope
 		});
 	}
+	$scope.cambiarFiltro=function(num){
+		var filtrarPor="";
+		console.log($scope.ArrayFiltros[num]);
+		$scope.ArrayFiltros[num].estado=$scope.ArrayFiltros[num].estado==1?0.3:1;
+		switch(num){
+			case 0:
+			filtrarPor="Accidente";
+			break;
+			case 1:
+			filtrarPor="Ambulancia";
+			break;
+			case 2:
+			filtrarPor="Animal";
+			break;
+			case 3:
+
+			filtrarPor="Averia";
+			break;
+			case 4:
+			filtrarPor="Obras";
+			break;
+			case 5:
+			filtrarPor="Protesta";
+			break;
+		}
+		$scope.marcas.forEach(function(marca) {
+			if(filtrarPor==marca.tipoReclamo){
+				marca.mostrar=marca.mostrar?false:true;
+			}			
+		});
+	}
+	
 
 
 
