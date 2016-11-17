@@ -3,7 +3,7 @@
 <ion-nav-buttons side="left" class="has-header">
 <button class="button button-icon icon ion-map"></button>
 </ion-nav-buttons>
-<ion-content padding="true" style="background: url(img/TzAU9V7YRW2wCVQP1Ibx_andygeeart.jpeg) no-repeat center;background-size:cover;" class="has-header">
+<ion-content padding="true"  scroll="false" style="background: url(img/TzAU9V7YRW2wCVQP1Ibx_andygeeart.jpeg) no-repeat center;background-size:cover;" class="has-header">
 <ion-spinner icon="circles" class="spinner-energized" ng-show="cantidad==-1 || marcas.length<cantidad"></ion-spinner>
 <ul class="list"  ng-if="marcas.length==cantidad">
 	<li class="item" style="border-width:0px;">
@@ -11,41 +11,41 @@
 
 
 		<custom-marker  ng-repeat="p in marcas" position="{{p.ubicacionactual.lat}},{{p.ubicacionactual.long}}" >
-		<a  ng-click="MostrarInformacion(p)" ><img  ng-src="img/mapa/marca{{p.tipoReclamo}}.png"  width="40" height="40" /> </a>
-		<div class='pulse'></div>
+		<a  ng-show="p.mostrar" ng-click="MostrarInformacion(p)" ><img  ng-src="img/mapa/marca{{p.tipoReclamo}}.png"  width="40" height="40" /> </a>
+		<div ng-show="p.mostrar" class='pulse'></div>
 	</custom-marker>
 </ng-map>
 </li>
 <li class="item" style="border-width:0px;">
-	<div class="row"><h2 class="gradient">FILTROS</h2></div>
+	<div class="row"><h2 class="retro">FILTROS</h2></div>
 	<div class="row">
 		<div class="col">
-			<a  ng-click="" ><img  ng-src="img/mapa/marcaAccidente.png"   width="40" height="40" /> </a> 
+			<a  ng-click="cambiarFiltro(0)" style="opacity:{{ArrayFiltros[0].estado}}"><img  ng-src="img/mapa/marcaAccidente.png"   width="40" height="40" /> </a> 
 			<br>
 			<p>Accidente</p>
 		</div>
-		<div class="col"><a  ng-click="" ><img  ng-src="img/mapa/marcaAmbulancia.png"   width="40" height="40" /> </a> 
+		<div class="col"><a  ng-click="cambiarFiltro(1)" style="opacity:{{ArrayFiltros[1].estado}}"><img  ng-src="img/mapa/marcaAmbulancia.png"   width="40" height="40" /> </a> 
 			<br>
 			<p>Ambulancia</p>
 		</div>
 		<div class="col">
-			<a  ng-click="" ><img  ng-src="img/mapa/marcaAnimal.png"   width="40" height="40" /> </a> 
+			<a  ng-click="cambiarFiltro(2)" style="opacity:{{ArrayFiltros[2].estado}}"><img  ng-src="img/mapa/marcaAnimal.png"   width="40" height="40" /> </a> 
 			<br>
 			<p>Animal</p>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col">
-			<a  ng-click="" ><img  ng-src="img/mapa/marcaAveria.png"   width="40" height="40" /> </a> 
+			<a  ng-click="cambiarFiltro(3)" style="opacity:{{ArrayFiltros[3].estado}}"><img  ng-src="img/mapa/marcaAveria.png"   width="40" height="40" /> </a> 
 			<br>
 			<p>Averia</p>
 		</div>
-		<div class="col"><a  ng-click="" ><img  ng-src="img/mapa/marcaObras.png"   width="40" height="40" /> </a> 
+		<div class="col"><a  ng-click="cambiarFiltro(4)" style="opacity:{{ArrayFiltros[4].estado}}"><img  ng-src="img/mapa/marcaObras.png"   width="40" height="40" /> </a> 
 			<br>
 			<p>Obras</p>
 		</div>
 		<div class="col">
-			<a  ng-click="" ><img  ng-src="img/mapa/marcaProtesta.png"   width="40" height="40" /> </a> 
+			<a  ng-click="cambiarFiltro(5)" style="opacity:{{ArrayFiltros[5].estado}}"><img  ng-src="img/mapa/marcaProtesta.png"   width="40" height="40" /> </a> 
 			<br>
 			<p>Protesta</p>
 		</div>

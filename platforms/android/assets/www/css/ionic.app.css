@@ -5280,7 +5280,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
   width: 100%;
   background-color: #fff; }
 
-@media (min-width: 680px) {
+@media (min-width: 1px) {
   .modal {
     top: 20%;
     right: 20%;

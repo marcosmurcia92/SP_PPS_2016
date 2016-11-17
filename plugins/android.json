@@ -30,6 +30,9 @@
         },
         "cordova-plugin-fcm": {
             "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
+        },
+        "cordova-plugin-velda-devicefeedback": {
+            "PACKAGE_NAME": "com.ionicframework.autopistasdelorian696190"
         }
     },
     "dependent_plugins": {}

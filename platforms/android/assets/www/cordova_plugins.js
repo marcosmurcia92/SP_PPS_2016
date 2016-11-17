@@ -48,6 +48,14 @@ module.exports = [
         "clobbers": [
             "FCMPlugin"
         ]
+    },
+    {
+        "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
+        "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
+        "pluginId": "cordova-plugin-velda-devicefeedback",
+        "clobbers": [
+            "window.plugins.deviceFeedback"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -60,7 +68,8 @@ module.exports.metadata =
     "ionic-plugin-keyboard": "2.2.1",
     "cordova-plugin-whitelist": "1.3.0",
     "cordova-plugin-statusbar": "2.2.0",
-    "cordova-plugin-fcm": "1.1.5"
+    "cordova-plugin-fcm": "1.1.5",
+    "cordova-plugin-velda-devicefeedback": "0.0.2"
 };
 // BOTTOM OF METADATA
 });

@@ -149,6 +149,7 @@ angular.module('app.controllers')
 		var referencia = firebase.database().ref('denuncias');
   		//var referencia = SrvFirebase.RefDenuncias();
   		var referenciaFirebase = referencia.push();
+  		
   		referenciaFirebase.set($scope.denuncia, function(error){
   			var mensaje = '';
 
