@@ -18,6 +18,14 @@ angular.module('app.controllers')
 		{
 			name: 'Necesidad de ambulancia',
 			value: 4
+		},
+		{
+			name: 'Protestas',
+			value: 5
+		},
+		{
+			name: 'Obras',
+			value: 6
 		}
 	];
 
@@ -27,7 +35,7 @@ angular.module('app.controllers')
 	$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
 	$scope.denuncia.ubicacionactual = {};
 	$scope.denuncia.lugar = {};
-	$scope.denuncia.fechaIngreso = $scope.denuncia.fechaSuceso = new Date();
+	$scope.denuncia.fechaIngreso = $scope.denuncia.fechaSuceso = $scope.denuncia.fechaInicio = $scope.denuncia.fechaFin = new Date();
 	$scope.opciones.esfechaactual = true;
 	$scope.denuncia.tipoReclamo = 2;
 
@@ -83,7 +91,9 @@ angular.module('app.controllers')
 
   	$scope.ElegirFecha = function(){
   		//funcionalidad que lanza el cordovadatetimepicker si la app corre en mobile
-		if(!$scope.opciones.esfechaactual && $scope.opciones.esmobile){
+		if(($scope.denuncia.tipoReclamo != 5 && $scope.denuncia.tipoReclamo != 6 && !$scope.opciones.esfechaactual) 
+			||(scope.denuncia.tipoReclamo == 5 || $scope.denuncia.tipoReclamo == 6 )
+			&& $scope.opciones.esmobile){
 		  	try{
 		  		$ionicPlatform.ready(function() {
 		  			var options = {
@@ -137,19 +147,30 @@ angular.module('app.controllers')
   	$scope.cargando = false;
   	$scope.Denunciar = function(){
   		$scope.cargando = true;
-  		$scope.denuncia.fechaIngreso = new Date();
-  		if($scope.opciones.esubicacionactual){
+		$scope.denuncia.fechaIngreso = new Date();
+		if($scope.opciones.esubicacionactual){
   			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
+  		}	
+  	
+  		switch($scope.denuncia.tipoReclamo){
+  			case 1, 2, 3, 4:		  		
+		  		if($scope.opciones.esfechaactual){
+		  			$scope.denuncia.fechaSuceso = $scope.denuncia.fechaIngreso;
+		  		}
+		  		$scope.denuncia.fechaInicio = $scope.denuncia.fechaFin = null;
+
+		  		break;
+		  	case 5, 6:
+			  	$scope.denuncia.fechaSuceso = null;
+		  		break;
   		}
-  		if($scope.opciones.esfechaactual){
-  			$scope.denuncia.fechaSuceso = $scope.denuncia.fechaIngreso;
-  		}
+  		
   		$scope.denuncia.estado = 'Pendiente';
 		console.info($scope.denuncia);
 		var referencia = firebase.database().ref('denuncias');
   		//var referencia = SrvFirebase.RefDenuncias();
   		var referenciaFirebase = referencia.push();
-  		
+
   		referenciaFirebase.set($scope.denuncia, function(error){
   			var mensaje = '';
 
