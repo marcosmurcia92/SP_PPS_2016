@@ -152,15 +152,20 @@ angular.module('app.controllers')
   			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
   		}	
   	
+  		console.info($scope.denuncia.tipoReclamo);
   		switch($scope.denuncia.tipoReclamo){
-  			case 1, 2, 3, 4:		  		
+  			case 1:
+  			case 2:
+  			case 3:
+  			case 4:		  		
 		  		if($scope.opciones.esfechaactual){
 		  			$scope.denuncia.fechaSuceso = $scope.denuncia.fechaIngreso;
 		  		}
 		  		$scope.denuncia.fechaInicio = $scope.denuncia.fechaFin = null;
 
 		  		break;
-		  	case 5, 6:
+		  	case 5:
+		  	case 6:
 			  	$scope.denuncia.fechaSuceso = null;
 		  		break;
   		}
@@ -187,6 +192,8 @@ angular.module('app.controllers')
   			$timeout(function(){
   				$scope.cargando = false;
   				alert(mensaje);
+
+  				$scope.denuncia.adicional = null;
   			}, 1000);
 
   		});
