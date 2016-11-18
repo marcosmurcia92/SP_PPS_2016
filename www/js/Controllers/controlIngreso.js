@@ -17,7 +17,12 @@ angular.module('app.controllers')
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    //FCMPlugin.subscribeToTopic('autopistasDelorean');
+    try
+    {
+      FCMPlugin.subscribeToTopic('autopistasDelorean');
+    }catch(error){
+      console.log("FCM no disponible, estas en Web");
+    }
     console.log("TRATO DE CERRARME");
     $scope.modal.hide();
   };
