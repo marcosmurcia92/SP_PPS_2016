@@ -53,6 +53,11 @@ angular.module('app.controllers')
       if (error.code == "auth/weak-password") {
         alert("La contraseña debe tener al menos 6 caracteres");
       };
+
+      if (error.code == "auth/email-already-in-use") {
+        alert("El mail ya esta registrado con un proveedor diferente");
+      };
+
     }).then(function (respuesta){
 
       $timeout(function (){
@@ -138,7 +143,32 @@ angular.module('app.controllers')
         }
         
         $scope.respuestaToken = respuesta;
-        TraerUsuario();
+        
+
+        if (window.cordova) {
+
+          if ($scope.respuestaToken.email == "marcosmurcia92@gmail.com" || $scope.respuestaToken.email == "jmgiusti91@yahoo.com") {
+
+            UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, true);
+
+            $scope.closeLogin();
+
+          } else {
+
+            UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, false);
+
+            $scope.closeLogin();
+
+          }
+
+        } else {
+
+          if($scope.respuestaToken != null)
+            TraerUsuario();
+
+        }
+
+
       })
     })
 
@@ -183,7 +213,16 @@ $scope.GoogleLogin = function(){
               $scope.usuarioGoogle = $ionicUser.social.google.data;
               $scope.respuestaToken = $ionicUser.social.google.data;
 
-              TraerUsuario();
+              UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, false);
+
+
+              $timeout(function(){
+
+                TraerUsuario();
+
+              });
+
+              $scope.closeLogin();
 
             }).catch(function (error){
 
@@ -236,6 +275,10 @@ $scope.GoogleLogin = function(){
           }
         });
 
+      } else {
+
+        firebase.auth().signOut();
+        UsuarioDelorean.login("", "", false);
       }
 
     } //Fin Google Web
@@ -259,7 +302,15 @@ $scope.GoogleLogin = function(){
             $scope.usuarioGithub = $ionicUser.social.github.data;
             $scope.respuestaToken = $ionicUser.social.github.data;
             
-            TraerUsuario();
+            UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, false);
+
+            $timeout(function(){
+
+                TraerUsuario();
+                
+              });
+
+            $scope.closeLogin();
 
           }).catch(function (error){
 
@@ -310,6 +361,10 @@ $scope.GoogleLogin = function(){
             }
         });
 
+      } else {
+
+        firebase.auth().signOut();
+        UsuarioDelorean.login("", "", false);
       } 
 
     } //Fin GitHub Web

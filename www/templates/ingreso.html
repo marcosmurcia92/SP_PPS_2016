@@ -1,4 +1,4 @@
-<ion-modal-view ng-controller="ingresoCtrl">
+<ion-modal-view ng-controller="ingresoCtrl" style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">
   <ion-header-bar>
     <h1 class="title">Login</h1>
     <!-- <div class="buttons">
@@ -6,7 +6,7 @@
     </div> -->
   </ion-header-bar>
 <!-- <ion-view title="Ingreso" id="page4"> -->
-  <ion-content padding="true" style="background: url(img/s7uuCgTDCYVx1syhhG1A_andygeeart.jpeg) no-repeat center;background-size:cover;" >
+  <ion-content padding="true" style="background: url(img/delorean-fondo-blanco.jpg) no-repeat center;background-size:cover;" >
 
     <form name="FormLogin" ng-show="VerLogin">
       <div class="list">
@@ -49,14 +49,14 @@
           <input type="password" ng-model="registerData.password" ng-disabled="!habilitadoRegister" required>
         </label>
         <label class="item" ng-if="registerData.password.length < 6">
-          <span style="color:#FF0000;font-size:18;">* El Password debe tener al menos 6 caracteres</span>
+          <span style="color:#FF0000;font-size:18;font-weight:bold">* El Password debe tener al menos 6 caracteres</span>
         </label>
         <label class="item item-input">
           <span class="input-label">Confirm Password</span>
           <input type="password" ng-model="registerData.confirmPassword" ng-disabled="!habilitadoRegister" required>
         </label>
         <label class="item" ng-if="registerData.password != registerData.confirmPassword">
-          <span style="color:#FF0000;font-size:18;">* Las claves no coinciden</span> 
+          <span style="color:#FF0000;font-size:18;font-weight:bold">* Las claves no coinciden</span> 
         </label>
         <label class="item">  
           <button class="button button-block button-balanced" ng-disabled="FormRegistro.$invalid || registerData.password != registerData.confirmPassword || registerData.password.length < 6" ng-click="Registrarse()" ng-show="habilitadoRegister">Sign Up!</button>
