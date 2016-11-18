@@ -12,7 +12,7 @@ angular.module('app.controllers', ['firebase', 'ngCordova'])
     backdropClickToClose: false
   }).then(function(modal) {
     $scope.modal = modal;
-    //openLogin();
+    openLogin();
   });
 
   // $scope.$on('$ionicView.enter', function(e) {

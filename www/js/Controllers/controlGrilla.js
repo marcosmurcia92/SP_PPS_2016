@@ -27,12 +27,12 @@ angular.module('app.controllers')
 
     /*Parte  de la logica de las grillas  */
     /*Verifico  si  es admin */
-    if(UsuarioDelorean.isAdmin()){
+   /* if(!UsuarioDelorean.isAdmin()){
         $ionicPopup.alert({
          template: "<style>.popup {width: 200px !important; height:200px;}  </style> ",
          title: 'Usted no es administrador',
          template: 'No puedes ver la grilla, lo siento'
-     });
+     });*/
         $ionicHistory.nextViewOptions({
             disableBack: true
         });
