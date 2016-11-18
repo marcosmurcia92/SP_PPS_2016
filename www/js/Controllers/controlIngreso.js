@@ -236,10 +236,6 @@ $scope.GoogleLogin = function(){
           }
         });
 
-      } else {
-
-        firebase.auth().signOut();
-        UsuarioDelorean.login("", "", false);
       }
 
     } //Fin Google Web
@@ -314,12 +310,7 @@ $scope.GoogleLogin = function(){
             }
         });
 
-      } else{
-
-        firebase.auth().signOut();
-        UsuarioDelorean.login("", "", false);
-
-      }
+      } 
 
     } //Fin GitHub Web
 
