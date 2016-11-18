@@ -19,29 +19,23 @@ angular.module('app.controllers', ['firebase', 'ngCordova'])
   //   openLogin();
   // })
 
-	try
-	{
-		FCMPlugin.onNotification(
-		  function(data){
-		    if(data.wasTapped){
-		      //Notification was received on device tray and tapped by the user.
-		      alert( JSON.stringify(data) );
-		    }else{
-		      //Notification was received in foreground. Maybe the user needs to be notified.
-		      alert( JSON.stringify(data) );
-		    }
-		  },
-		  function(msg){
-		    console.log('onNotification callback successfully registered: ' + msg);
-		  },
-		  function(err){
-		    console.log('Error registering onNotification callback: ' + err);
-		  }
-		);
-	}catch(error){
-		console.log("FCM no disponible, estas en Web");
-	}
-  
+//   FCMPlugin.onNotification(
+//   function(data){
+//     if(data.wasTapped){
+//       //Notification was received on device tray and tapped by the user.
+//       alert( JSON.stringify(data) );
+//     }else{
+//       //Notification was received in foreground. Maybe the user needs to be notified.
+//       alert( JSON.stringify(data) );
+//     }
+//   },
+//   function(msg){
+//     console.log('onNotification callback successfully registered: ' + msg);
+//   },
+//   function(err){
+//     console.log('Error registering onNotification callback: ' + err);
+//   }
+// );
 
   function openLogin(){
   	$scope.modal.show();
@@ -54,13 +48,9 @@ angular.module('app.controllers', ['firebase', 'ngCordova'])
 		console.info("ionicAuth", $ionicAuth);
 
 		console.info("firebase", firebase.auth().currentUser);
-		try
-		{
-			FCMPlugin.unsubscribeFromTopic('autopistasDelorean');
-		}catch(error){
-			console.log("FCM no disponible, estas en Web");
-		}
-		
+
+		//FCMPlugin.unsubscribeFromTopic('autopistasDelorean');
+
 		if (firebase.auth().currentUser != null) {
 
 			firebase.auth().signOut().then(function(rta){

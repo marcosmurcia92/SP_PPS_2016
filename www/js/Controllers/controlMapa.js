@@ -39,6 +39,11 @@ angular.module('app.controllers')
 				message.tipoReclamo="Ambulancia";
 				break;
 				case 5:
+				message.tipoReclamo="Protesta";
+				break;
+				case 6:
+				message.tipoReclamo="Obras";
+
 				break;
 			}
 			$scope.marcas.push(message);

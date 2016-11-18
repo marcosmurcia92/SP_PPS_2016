@@ -11,7 +11,7 @@
 
 
 		<custom-marker  ng-repeat="p in marcas" position="{{p.ubicacionactual.lat}},{{p.ubicacionactual.long}}" >
-		<a  ng-show="p.mostrar" ng-click="MostrarInformacion(p)" ><img  ng-src="img/mapa/marca{{p.tipoReclamo}}.png"  width="40" height="40" /> </a>
+		<a  ng-show="p.mostrar && (p.estado=='Activo')" ng-click="MostrarInformacion(p)" ><img  ng-src="img/mapa/marca{{p.tipoReclamo}}.png"  width="40" height="40" /> </a>
 		<div ng-show="p.mostrar" class='pulse'></div>
 	</custom-marker>
 </ng-map>

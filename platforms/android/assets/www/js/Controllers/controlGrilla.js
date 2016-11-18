@@ -27,7 +27,7 @@ angular.module('app.controllers')
 
     /*Parte  de la logica de las grillas  */
     /*Verifico  si  es admin */
-    if(!UsuarioDelorean.isAdmin()){
+    if(UsuarioDelorean.isAdmin()){
         $ionicPopup.alert({
            template: "<style>.popup {width: 200px !important; height:200px;}  </style> ",
            title: 'Usted no es administrador',
@@ -42,49 +42,113 @@ angular.module('app.controllers')
     }
     $scope.isLeft=true;/*Esto es parte del diseño para ver si muestro  denuncia o reclamo */
     var referenciaDenuncia= SrvFirebase.RefDenuncias();
+    $scope.DenuConfigColum= [
+    { field: 'usuario', name: 'usuario',minWidth: 90},
+    { field: 'tipoReclamo', name: 'tipo reclamo',minWidth: 90},
+    { field: 'estado', name: 'estado'
+    ,cellTemplate:'<a style="width:100%" class="action-button shadow animate yellow" ng-click="grid.appScope.CambiarEstado(row.entity,grid.renderContainers.body.visibleRowCache.indexOf(row))" ><i class="glyphicon glyphicon-erase">&nbsp;{{row.entity.estado}}</i></a>'
+    , enableFiltering: false
+}
+];
 
-    $scope.GDenucias=[];
-    $scope.GReclamos=[];
-    $scope.cantidadD=-1;
-    $scope.cantidadR=-1;
-    referenciaDenuncia.once('value', function(snap) {
-        $scope.cantidad=snap.numChildren();
-        $scope.cantidadD=snap.numChildren();
-        console.log(snap.numChildren());
-    });
-
-    SrvFirebase.RefReclamos().once('value', function(snap) {
-        $scope.cantidad=snap.numChildren();
-        $scope.cantidadR=snap.numChildren();
-        console.log(snap.numChildren());
-    });
-    /*Traigo  los datos de las denuncia  */ 
-    referenciaDenuncia.on('child_added', function (snapshot) {
-        $timeout(function(){
-            var  denucia={};
-            var message = snapshot.val();
-            denucia.ingreso= darFecha ( new Date(message.fechaIngreso));
-            denucia.suceso= darFecha (new Date(message.fechaSuceso));
-            denucia.requierePolicia= message.requierePolicia==true?"SI":"NO";
-            $scope.GDenucias.push(denucia);
-        })
-
-    });
-
-    /*Traigo  los datos de los reclamos */
-    SrvFirebase.RefReclamos().on('child_added', function (snapshot) {
-        $timeout(function(){
-            var  denucia={};
-            var message = snapshot.val();
-            console.log(snapshot.val());
-            $scope.GReclamos.push(message);
-        })
-
-    });
-    var darFecha= function(fecha){
-        var dia= fecha.getDate()<10? "0"+ fecha.getDate(): fecha.getDate();
-        var mes= fecha.getMonth()+1<10? "0"+ (fecha.getMonth()+1): fecha.getMonth()+1;
-        return dia+"-"+ mes+"-"+ fecha.getFullYear();
+$scope.CambiarEstado=function(denuncia,index){
+    switch(denuncia.estado){
+        case "Pendiente":
+        referenciaDenuncia.child(denuncia.key).update({  "estado":'Activo'});
+        denuncia.estado="Activo";
+        break;
+        case "Activo":
+        referenciaDenuncia.child(denuncia.key).update({  "estado":'Inactivo'});
+        denuncia.estado="Inactivo";
+        break;
+        case "Inactivo":
+        referenciaDenuncia.child(denuncia.key).update({  "estado":'Pendiente'});
+        denuncia.estado="Pendiente";
+        break;
     }
+
+    console.log(index);
+
+}
+$scope.DarTabla= function (){
+    return [
+    { field: 'usuario', name: 'usuario',minWidth: 90},
+
+
+    ];
+}
+
+$scope.GDenucias=[];
+$scope.GReclamos=[];
+$scope.cantidadD=-1;
+$scope.cantidadR=-1;
+$scope.GDenucias.paginationPageSizes = [25, 50, 75];
+$scope.GDenucias.paginationPageSize = 25;
+   // $scope.GDenucias.columnDefs=DarTabla();
+    //Parte spinner y firebase para traer los datos
+   /* var prueba= referenciaDenuncia.child("2jqn_RBBic1WoNxf");
+    prueba.update({
+      "nicaSkname": "333"
+  });*/
+   // referenciaDenuncia.child("auctions").update({a: true});
+   referenciaDenuncia.once('value', function(snap) {
+    $scope.cantidad=snap.numChildren();
+    $scope.cantidadD=snap.numChildren();
+});
+
+   SrvFirebase.RefReclamos().once('value', function(snap) {
+    $scope.cantidad=snap.numChildren();
+    $scope.cantidadR=snap.numChildren();
+});
+   /*Traigo  los datos de las denuncia  */ 
+   referenciaDenuncia.on('child_added', function (snapshot) {
+    $timeout(function(){
+        var  denucia={};
+        var message = snapshot.val();
+        switch(message.tipoReclamo){
+            case 1:
+            message.tipoReclamo="Accidente";
+            break;
+            case 2:
+            message.tipoReclamo="Averia";
+            break;
+            case 3:
+            message.tipoReclamo="Animal";
+            break;
+            case 4:
+            message.tipoReclamo="Ambulancia";
+            break;
+            case 5:
+            message.tipoReclamo="Protesta";
+            break;
+            case 6:
+            message.tipoReclamo="Obras";
+
+            break;
+        }
+
+        denucia.key=snapshot.key
+        denucia.usuario=message.usuario;
+        denucia.tipoReclamo=message.tipoReclamo;
+        denucia.estado=message.estado;
+        $scope.GDenucias.push(denucia);
+    })
+});
+
+   /*Traigo  los datos de los reclamos */
+   SrvFirebase.RefReclamos().on('child_added', function (snapshot) {
+    $timeout(function(){
+        var  denucia={};
+        var message = snapshot.val();
+        console.log(snapshot.val());
+        $scope.GReclamos.push(message);
+    })
+
+});
+   var darFecha= function(fecha){
+    var dia= fecha.getDate()<10? "0"+ fecha.getDate(): fecha.getDate();
+    var mes= fecha.getMonth()+1<10? "0"+ (fecha.getMonth()+1): fecha.getMonth()+1;
+    return dia+"-"+ mes+"-"+ fecha.getFullYear();
+}
 
 });

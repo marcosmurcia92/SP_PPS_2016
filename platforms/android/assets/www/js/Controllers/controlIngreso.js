@@ -17,7 +17,12 @@ angular.module('app.controllers')
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    //FCMPlugin.subscribeToTopic('autopistasDelorean');
+    try
+    {
+      FCMPlugin.subscribeToTopic('autopistasDelorean');
+    }catch(error){
+      console.log("FCM no disponible, estas en Web");
+    }
     console.log("TRATO DE CERRARME");
     $scope.modal.hide();
   };
@@ -343,7 +348,7 @@ $scope.GoogleLogin = function(){
          continua sin inicializarse significa que el usuario no esta en la base. 
          Una vez alli, se agrega el elemento a la base.*/
 
-        if ($scope.respuestaToken.email != null) {
+        /*if ($scope.respuestaToken.email != null) {
 
           alert($scope.respuestaToken.email);
 
@@ -351,13 +356,13 @@ $scope.GoogleLogin = function(){
 
           alert($scope.respuestaToken.username);
 
-        }
+        }*/
 
         if (snapshot.val() != null && $scope.respuestaToken.email != null) {
 
           usuarioBD = snapshot.val();
 
-          console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
+          //console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
 
           if (usuarioBD.email == $scope.respuestaToken.email) {
 
@@ -371,7 +376,7 @@ $scope.GoogleLogin = function(){
 
           usuarioBD = snapshot.val();
 
-          console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
+          //console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
 
           if (usuarioBD.nombre == $scope.respuestaToken.username) {
 
@@ -390,7 +395,7 @@ $scope.GoogleLogin = function(){
 
           var ultimoUsuario = snapshot.val(); //ACa obtengo al ultimo usuario... Este se hace cada vez que se ejecuta el child_added de arriba!!!
 
-          console.info("Yo soy el ultimo usuario", ultimoUsuario);
+          //console.info("Yo soy el ultimo usuario", ultimoUsuario);
 
           if (usuarioBD.mail == ultimoUsuario.mail) {
 
