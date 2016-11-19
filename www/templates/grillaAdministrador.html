@@ -18,12 +18,13 @@ ng-show="(cantidadD==-1 || cantidadR==-1 ) ||( GDenucias.length<cantidadD || GRe
 	<div ng-if="GDenucias.length==cantidadD && GReclamos.length==cantidadR" style="position: absolute; top:50px; width:100%; height: 500px">
 		<div ng-if="isLeft"   >
 			<h1 class="threeD">DENUNCIAS</h1>
-			<div ng-if="isLeft" id="grid1"  ui-grid="{ data: GDenucias,columnDefs:DenuConfigColum }" class="grid" ></div>
+			<div ng-if="isLeft" id="grid1"  ui-grid="{ data: GDenucias,columnDefs:DenuConfigColum,rowHeight:40 }" class="grid" ></div>
 			<h2>* Hace click en la fila para mas informacion </h2>
 		</div>
 		<div ng-if="!isLeft" >
 			<h1 class="threeD">RECLAMOS</h1>
-			<div ng-if="!isLeft" id="grid2"  ui-grid="{ data: GReclamos,columnDefs:ReclaConfigColum }" class="grid"></div> 
+			<div ng-if="!isLeft" id="grid2"  ui-grid="{ data: GReclamos,columnDefs:ReclaConfigColum,rowHeight:40 }" class="grid"></div> 
+			<h2>* Hace click en la fila para mas informacion </h2>
 		</div>
 	</div>
 

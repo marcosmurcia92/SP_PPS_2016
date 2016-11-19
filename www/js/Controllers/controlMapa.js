@@ -23,7 +23,6 @@ angular.module('app.controllers')
 	referenciaDenuncia.on('child_added', function (snapshot) {
 		$timeout(function(){
 			var message = snapshot.val();
-			console.log(message.tipoReclamo);
 			message.mostrar=true;
 			switch(message.tipoReclamo){
 				case 1:
@@ -68,7 +67,6 @@ angular.module('app.controllers')
 	}
 	$scope.cambiarFiltro=function(num){
 		var filtrarPor="";
-		console.log($scope.ArrayFiltros[num]);
 		$scope.ArrayFiltros[num].estado=$scope.ArrayFiltros[num].estado==1?0.3:1;
 		switch(num){
 			case 0:

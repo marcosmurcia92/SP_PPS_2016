@@ -32,18 +32,18 @@ angular.module('app.controllers')
          template: "<style>.popup {width: 200px !important; height:200px;}  </style> ",
          title: 'Usted no es administrador',
          template: 'No puedes ver la grilla, lo siento'
-     });*/
+     });
         $ionicHistory.nextViewOptions({
             disableBack: true
         });
 
         $state.go( "menu.mapaDeDenuncias");
 
-    }
+    }*/
     $scope.isLeft=true;/*Esto es parte del diseño para ver si muestro  denuncia o reclamo */
     var referenciaDenuncia= SrvFirebase.RefDenuncias();
     $scope.DenuConfigColum= [
-    { field: 'usuario', name: 'usuario',minWidth: 90,
+    { field: 'usuario', name: 'usuario',minWidth: 90,rowHeight:500,
     cellTemplate:'<div ng-click="grid.appScope.Mostrar(row.entity)" >{{row.entity.usuario==""?"sin usuario":row.entity.usuario}}</div>'},
     { field: 'tipoReclamo', name: 'tipo reclamo',minWidth: 90 ,
     cellTemplate:'<div ng-click="grid.appScope.Mostrar(row.entity)" >{{row.entity.tipoReclamo}}</div>'},
@@ -51,15 +51,28 @@ angular.module('app.controllers')
     ,cellTemplate:'<a style="width:100%" class="action-button shadow animate yellow" ng-click="grid.appScope.CambiarEstado(row.entity,grid.renderContainers.body.visibleRowCache.indexOf(row))" ><i class="glyphicon glyphicon-erase">&nbsp;{{row.entity.estado}}</i></a>'
     , enableFiltering: false}
     ];
-    $scope.ReclaConfigColum= [ { field: 'denuncia', name: 'Denuncia',minWidth: 90},
-    { field: 'personal', name: 'Personal',minWidth: 90},
-    { field: 'predisposicion', name: 'predisposicion',minWidth: 90},
-    { field: 'velodad', name: 'velocidad',minWidth: 90},
+    $scope.ReclaConfigColum= [ { field: 'usuario', name: 'usuario',minWidth: 90,
+    cellTemplate:'<div ng-click="grid.appScope.MostrarReclamo(row.entity)" >{{row.entity.usuario==""?"sin usuario":row.entity.usuario}}</div>'},
+    { field: 'personal', name: 'Personal',minWidth: 90,
+    cellTemplate:'<div ng-click="grid.appScope.MostrarReclamo(row.entity)" >{{row.entity.personal}}</div>'},
+    { field: 'predisposicion', name: 'predisposicion',minWidth: 90,
+    cellTemplate:'<div ng-click="grid.appScope.MostrarReclamo(row.entity)" >{{row.entity.predisposicion}}</div>'},
+    { field: 'velocidad', name: 'velocidad',minWidth: 90,
+    cellTemplate:'<div ng-click="grid.appScope.MostrarReclamo(row.entity)" >{{row.entity.velocidad}}</div>'},
     ]
+    $scope.MostrarReclamo=function(dato){
+        $scope.informacion=dato;
+        $ionicPopup.alert({
+            template: "<style>.popup {width: 1000px !important; height:400px;} </style>",
+            templateUrl: 'templates/popupReclamo.html',
+            title: 'Informacion',
+            subTitle: 'Datos mas detallados',
+            scope: $scope
+        });
 
+    }
 
     $scope.Mostrar=function(dato){
-        console.log(dato);
         //  dato.fechaIngreso=  dia+"-"+ mes+"-"+ fecha.getFullYear();
         $scope.informacion=dato;
         $ionicPopup.alert({
@@ -87,7 +100,6 @@ angular.module('app.controllers')
             break;
         }
 
-        console.log(index);
 
     }
     $scope.DarTabla= function (){
@@ -140,7 +152,6 @@ angular.module('app.controllers')
 
                 break;
             }
-            console.log(message);
 
             denucia.key=snapshot.key;
             message.key=snapshot.key;
@@ -149,7 +160,7 @@ angular.module('app.controllers')
             denucia.estado=message.estado;
             $scope.GDenucias.push(message);
         })
-});
+    });
 
 /*Traigo  los datos de los reclamos */
 SrvFirebase.RefReclamos().on('child_added', function (snapshot) {
@@ -158,7 +169,7 @@ SrvFirebase.RefReclamos().on('child_added', function (snapshot) {
         var message = snapshot.val();
         message.personal=message.personal==null?"0%":message.personal+"%";
         message.predisposicion=message.predisposicion==null?"0%":message.predisposicion+"%";
-        message.velodad=message.velodad==null?"0%":message.velodad+"%";
+        message.velocidad=message.velocidad==null?"0%":message.velocidad+"%";
         $scope.GReclamos.push(message);
     })
 
