@@ -146,6 +146,8 @@ angular.module('app.controllers')
 
   	$scope.cargando = false;
   	$scope.Denunciar = function(){
+  		console.info($scope.denuncia);
+
   		$scope.cargando = true;
 		$scope.denuncia.fechaIngreso = new Date();
 		if($scope.opciones.esubicacionactual){
@@ -167,6 +169,7 @@ angular.module('app.controllers')
 		  	case 5:
 		  	case 6:
 			  	$scope.denuncia.fechaSuceso = null;
+			  	
 		  		break;
   		}
   		
