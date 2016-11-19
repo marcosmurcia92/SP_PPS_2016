@@ -1,0 +1,20 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files (x86)\nodejs\node.exe C:\Users\Linetsis\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] CLI Version:  3.1.0
+[debug] Platform:     win32
+[debug] Node Version: v6.4.0
+[debug] Time:         Sat Nov 19 2016 05:52:23 GMT-0300 (Hora estándar de Argentina)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/autopistasdelorian-ea30b 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/autopistasdelorian-ea30b/tokens 
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'autopistasdelorian-ea30b'...
+[info] 
+[info] i  deploying database, hosting
+[info] +  database: rules ready to deploy.
+[info] i  hosting: preparing public directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/autopistasdelorian-ea30b/uploads/-KWvmMay-3XzBCCtssi1?fileCount=1249&message= 
