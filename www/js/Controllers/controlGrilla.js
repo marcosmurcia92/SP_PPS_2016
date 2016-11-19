@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
-.controller('grillaCtrl', function($scope,$state, $timeout,SrvFirebase,UsuarioDelorean,$ionicPopup,$ionicHistory) {
+.controller('grillaCtrl', function($scope,$state, $timeout,SrvFirebase,UsuarioDelorean,$ionicPopup,$ionicHistory, uiGridConstants) {
     /*Parte  de  diseño  de los botones aca no hay que tocar  */
     var switchButton    = document.querySelector('.switch-button');
     var switchBtnRight  = document.querySelector('.switch-button-case.right');

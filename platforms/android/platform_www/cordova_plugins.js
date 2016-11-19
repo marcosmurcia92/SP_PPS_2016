@@ -65,6 +65,14 @@ module.exports = [
             "cordova.InAppBrowser.open",
             "window.open"
         ]
+    },
+    {
+        "id": "cordova-plugin-datepicker.DatePicker",
+        "file": "plugins/cordova-plugin-datepicker/www/android/DatePicker.js",
+        "pluginId": "cordova-plugin-datepicker",
+        "clobbers": [
+            "datePicker"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -79,7 +87,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.2.0",
     "cordova-plugin-fcm": "1.1.5",
     "cordova-plugin-velda-devicefeedback": "0.0.2",
-    "cordova-plugin-inappbrowser": "1.5.0"
+    "cordova-plugin-inappbrowser": "1.5.0",
+    "cordova-plugin-datepicker": "0.9.2"
 };
 // BOTTOM OF METADATA
 });

@@ -5,8 +5,8 @@
 	<ion-item class="energized"  style="background-color:rgba(3, 97, 154, 0.64)">Enviado por: 
 	<h2 class="texto">{{informacion.usuario}}</h2>
 </ion-item>
-<ion-item class="energized" style="background-color:rgba(3, 97, 154, 0.64)" >Fecha del accidente:   
-<h2 class="texto">{{informacion.fechaIngreso}}</h2>
+<ion-item class="energized" style="background-color:rgba(3, 97, 154, 0.64)" >Tipo reclamo:   
+<h2 class="texto">{{informacion.tipoReclamo=="Animal"?"Animal  suelto":informacion.tipoReclamo }}</h2>
 </ion-item>
 <ion-item class="energized" style="background-color:rgba(3, 97, 154, 0.64);  white-space:pre-line;" >Ubicacion del suceso:   
 <h2 class="texto">{{informacion.ubicacionactual.nombre}}</h2>

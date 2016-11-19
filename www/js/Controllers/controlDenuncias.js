@@ -175,8 +175,7 @@ angular.module('app.controllers')
   		
   		$scope.denuncia.estado = 'Pendiente';
 		console.info($scope.denuncia);
-		var referencia = firebase.database().ref('denuncias');
-  		//var referencia = SrvFirebase.RefDenuncias();
+  		var referencia = SrvFirebase.RefDenuncias();
   		var referenciaFirebase = referencia.push();
 
   		referenciaFirebase.set($scope.denuncia, function(error){
@@ -189,6 +188,11 @@ angular.module('app.controllers')
   			else{
   				mensaje = 'Denuncia ingresada correctamente. La denuncia se encuentra pendiente de aprobación';
   				console.info('Denuncia: ', $scope.denuncia);
+  				try{
+  					SrvFirebase.EnviarNotificacion();
+  				}catch(error){
+  					alert(error);
+  				}
   			}
 
 

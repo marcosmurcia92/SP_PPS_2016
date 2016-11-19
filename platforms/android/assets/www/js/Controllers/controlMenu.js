@@ -49,7 +49,11 @@ angular.module('app.controllers', ['firebase', 'ngCordova'])
 
 		console.info("firebase", firebase.auth().currentUser);
 
-		//FCMPlugin.unsubscribeFromTopic('autopistasDelorean');
+		try{
+			FCMPlugin.unsubscribeFromTopic('autopistasDelorean');
+		}catch(error){
+			alert(error);
+		}
 
 		if (firebase.auth().currentUser != null) {
 

@@ -22,6 +22,7 @@ angular.module('app.routes', [])
 
   .state('menu.mapaDeDenuncias', {
     url: '/mapa',
+     cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/mapaDeDenuncias.html',

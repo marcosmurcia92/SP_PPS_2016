@@ -36,6 +36,9 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.utnfra2016.AutopistasDelorean"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.utnfra2016.AutopistasDelorean"
         }
     },
     "dependent_plugins": {}

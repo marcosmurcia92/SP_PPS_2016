@@ -17,6 +17,12 @@ angular.module('app.controllers')
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
+    try
+    {
+      FCMPlugin.subscribeToTopic('autopistasDelorean');
+    }catch(error){
+      console.log("FCM no disponible, estas en Web");
+    }
     console.log("TRATO DE CERRARME");
     $scope.modal.hide();
   };
@@ -47,6 +53,11 @@ angular.module('app.controllers')
       if (error.code == "auth/weak-password") {
         alert("La contraseña debe tener al menos 6 caracteres");
       };
+
+      if (error.code == "auth/email-already-in-use") {
+        alert("El mail ya esta registrado con un proveedor diferente");
+      };
+
     }).then(function (respuesta){
 
       $timeout(function (){
@@ -132,7 +143,32 @@ angular.module('app.controllers')
         }
         
         $scope.respuestaToken = respuesta;
-        TraerUsuario();
+        
+
+        if (window.cordova) {
+
+          if ($scope.respuestaToken.email == "marcosmurcia92@gmail.com" || $scope.respuestaToken.email == "jmgiusti91@yahoo.com") {
+
+            UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, true);
+
+            $scope.closeLogin();
+
+          } else {
+
+            UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, false);
+
+            $scope.closeLogin();
+
+          }
+
+        } else {
+
+          if($scope.respuestaToken != null)
+            TraerUsuario();
+
+        }
+
+
       })
     })
 
@@ -177,7 +213,16 @@ $scope.GoogleLogin = function(){
               $scope.usuarioGoogle = $ionicUser.social.google.data;
               $scope.respuestaToken = $ionicUser.social.google.data;
 
-              TraerUsuario();
+              UsuarioDelorean.login($scope.respuestaToken.email, $scope.respuestaToken.email, false);
+
+
+              $timeout(function(){
+
+                TraerUsuario();
+
+              });
+
+              $scope.closeLogin();
 
             }).catch(function (error){
 
@@ -257,7 +302,15 @@ $scope.GoogleLogin = function(){
             $scope.usuarioGithub = $ionicUser.social.github.data;
             $scope.respuestaToken = $ionicUser.social.github.data;
             
-            TraerUsuario();
+            UsuarioDelorean.login($scope.respuestaToken.username, $scope.respuestaToken.username, false);
+
+            $timeout(function(){
+
+                TraerUsuario();
+                
+              });
+
+            $scope.closeLogin();
 
           }).catch(function (error){
 
@@ -308,12 +361,11 @@ $scope.GoogleLogin = function(){
             }
         });
 
-      } else{
+      } else {
 
         firebase.auth().signOut();
         UsuarioDelorean.login("", "", false);
-
-      }
+      } 
 
     } //Fin GitHub Web
 
@@ -342,7 +394,7 @@ $scope.GoogleLogin = function(){
          continua sin inicializarse significa que el usuario no esta en la base. 
          Una vez alli, se agrega el elemento a la base.*/
 
-        if ($scope.respuestaToken.email != null) {
+        /*if ($scope.respuestaToken.email != null) {
 
           alert($scope.respuestaToken.email);
 
@@ -350,13 +402,13 @@ $scope.GoogleLogin = function(){
 
           alert($scope.respuestaToken.username);
 
-        }
+        }*/
 
         if (snapshot.val() != null && $scope.respuestaToken.email != null) {
 
           usuarioBD = snapshot.val();
 
-          console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
+          //console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
 
           if (usuarioBD.email == $scope.respuestaToken.email) {
 
@@ -370,7 +422,7 @@ $scope.GoogleLogin = function(){
 
           usuarioBD = snapshot.val();
 
-          console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
+          //console.info("Yo soy el usuario que se esta recorriendo", usuarioBD);
 
           if (usuarioBD.nombre == $scope.respuestaToken.username) {
 
@@ -389,7 +441,7 @@ $scope.GoogleLogin = function(){
 
           var ultimoUsuario = snapshot.val(); //ACa obtengo al ultimo usuario... Este se hace cada vez que se ejecuta el child_added de arriba!!!
 
-          console.info("Yo soy el ultimo usuario", ultimoUsuario);
+          //console.info("Yo soy el ultimo usuario", ultimoUsuario);
 
           if (usuarioBD.mail == ultimoUsuario.mail) {
 

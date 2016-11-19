@@ -5,7 +5,11 @@
 <button class="button button-icon icon ion-pie-graph"></button>
 </ion-nav-buttons>
 <ion-content padding="true" style="background: url(img/ToxU5zmRSaC46MuUviag_andygeeart.jpeg) no-repeat center;background-size:cover;  width:100%" class="has-header">
-
+	<h2>Denuncias Realizadas:</h2>
+	<canvas id="doughnut" ng-show="!spinner" class="chart chart-doughnut"
+	  chart-data="data" chart-labels="labels">
+	</canvas> 
+	<center><ion-spinner icon="android" ng-show="spinner"></ion-spinner></center>
 
 </ion-content>
 </ion-view>
