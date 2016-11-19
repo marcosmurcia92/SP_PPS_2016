@@ -4,6 +4,8 @@ Segundo parcial
 Nombre de Equipo: 
 ## Los DeLorean
 
+![picture alt](resources/icon.png "Autopistas Delorean")
+
 ### Administrador: Marcos Facundo Murcia
 
 ### Integrantes:
@@ -13,6 +15,9 @@ Nombre de Equipo:
  - Diana Man
  
 ### URL de Firebase: https://autopistasdelorian-ea30b.firebaseapp.com
+### ID de Ionic View: f0de58e3
+
+![picture alt](www/img/JkULuRRTT6FrTAXoGl8g_andygeeart.jpeg "Autopistas Delorean")
 
 ### Tareas del equipo:
  - Login y Register: Juan Giusti
@@ -21,21 +26,11 @@ Nombre de Equipo:
  - Manejo de Servicios: Marcos Facundo Murcia
  
 ### Pendientes:
- - Alta debe considerar variables no visibles en el form.
- - Estados de Denuncias:
- - - Pendiente: Recien ingresado, esperando aprobacion de Administrador.
- - - Activo: Aprobado y mostrado en Mapa.
- - - Inactivo: Expirado o Rechazado. Borrado desde grilla por Administrador.
- - Grafico de Torta: (Otra View)
- - - Cantidad total de denuncias.
- - - Denuncias Rechazadas.
- - - Denuncias Activas (Separadas por tipo) [*Emergencia Medica, *Accidente de Transito, *Animales, Obras, Protestas]
  - Denuncias Rapidas:
  - - Boton por cada tipo, manda denuncia segun la posicion, abre modal solo con info adicional.
- - Alta y Grilla de Reclamos.
  
 ### Progreso:
- - [ ] PUSH NOTIFICATIONS!
+ - [X] PUSH NOTIFICATIONS!
  - [X] Inicializacion de Servicios Basicos.
  - [X] Login con Google+, Github y Firebase (desde Android).
  - [X] Asignacion de Tokens de registro a Firebase Auth. (No funciono)
@@ -45,13 +40,12 @@ Nombre de Equipo:
  - [X] Interfaz de Alta de Denuncias.
  - [X] Interfaz de Alta de Reclamos/Sugerencias.
  - [X] Mapa de Denuncias con Markers Personalizados.
- - [ ] Sincronizacion de Alta con Mapas en Firebase.
+ - [X] Sincronizacion de Alta con Mapas en Firebase.
  - [X] Diferenciar contenido accesible por clientes y administradores.
  - [X] Grilla con Denuncias (Solo Administrador).
  - [X] Grilla con Reclamos (Solo Administrador).
- - [ ] Graficos de Denuncias (Solo Administrador).
- - [ ] Graficos de Reclamos (Solo Administrador).
- - [ ] Pagina de Autores.
- - [ ] Splash + Icono
+ - [X] Graficos de Denuncias (Solo Administrador).
+ - [X] Pagina de Autores.
+ - [X] Splash + Icono
  
  
