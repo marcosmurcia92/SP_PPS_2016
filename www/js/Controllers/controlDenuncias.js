@@ -121,7 +121,7 @@ angular.module('app.controllers')
   	$scope.TraerCoordenadas = function(){
   		//funcionalidad que utiliza la directiva googleplace para parsear la dirección a coordenadas
   		var request = {
-        	address: $scope.denuncia.lugar.name
+        	address: $scope.denuncia.lugar.nombre
       	};
       	console.info(request);
       	var geocoder = new google.maps.Geocoder();
@@ -133,8 +133,8 @@ angular.module('app.controllers')
 	        	if (status == google.maps.GeocoderStatus.OK) {
 	        		if (data[0] != null) {
 	        			console.info(data);
-	            		$scope.denuncia.lugar.lat = data[0].lat;
-	            		$scope.denuncia.lugar.long = data[0].lng;
+	            		$scope.denuncia.lugar.lat = data[0].geometry.location.lat();
+	            		$scope.denuncia.lugar.long = data[0].geometry.location.lng();
 	          		} else {
 	          			console.error("No hay informacion", data);
 	          		}
@@ -169,7 +169,7 @@ angular.module('app.controllers')
 		  	case 5:
 		  	case 6:
 			  	$scope.denuncia.fechaSuceso = null;
-			  	
+
 		  		break;
   		}
   		
