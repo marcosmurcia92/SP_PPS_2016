@@ -24,7 +24,7 @@ angular.module('app.controllers')
 			var denuncia = snapshot.val();
 			//denuncia.Id = denuncia.$$hashKey;
 			if(denuncia.usuario == UsuarioDelorean.getName()){
-				denuncia.name = denuncia.tipoReclamo + denuncia.lugar.nombre + denuncia.fechaActual;
+				denuncia.name = denuncia.tipoReclamo + denuncia.lugar.nombre + denuncia.fechaIngreso;
 				denuncia.id =denuncia.name;
 				$scope.denunciasrealizadas.push(denuncia);
 			}
@@ -72,6 +72,8 @@ angular.module('app.controllers')
 				$scope.contacto.denuncia = $scope.contacto.velocidad = $scope.contacto.predisposicion = $scope.contacto.personal= null;
 			}
 			$scope.contacto.usuario = UsuarioDelorean.getName();
+			$scope.contacto.fechaIngreso = new Date();
+			$scope.contacto.fechaIngreso = $scope.contacto.fechaIngreso.getTime();
 			
 			console.info($scope.contacto);
 

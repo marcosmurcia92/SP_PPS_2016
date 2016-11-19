@@ -147,62 +147,82 @@ angular.module('app.controllers')
   	$scope.Denunciar = function(){
   		console.info($scope.denuncia);
 
-		$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
-  		$scope.cargando = true;
-		$scope.denuncia.fechaIngreso = new Date();
-		if($scope.opciones.esubicacionactual){
-  			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
-  		}	
-  	
-  		console.info($scope.denuncia.tipoReclamo);
-  		switch($scope.denuncia.tipoReclamo){
-  			case 1:
-  			case 2:
-  			case 3:
-  			case 4:		  		
-		  		if($scope.opciones.esfechaactual){
-		  			$scope.denuncia.fechaSuceso = $scope.denuncia.fechaIngreso;
-		  		}
-		  		$scope.denuncia.fechaInicio = $scope.denuncia.fechaFin = null;
-
-		  		break;
-		  	case 5:
-		  	case 6:
-			  	$scope.denuncia.fechaSuceso = null;
-
-		  		break;
+  		if($scope.denuncia.ubicacionactual.nombre == null){
+  			alert('Debe habilitar el GPS para poder enviar una denuncia');
   		}
-  		
-  		$scope.denuncia.estado = 'Pendiente';
-		console.info($scope.denuncia);
-  		var referencia = SrvFirebase.RefDenuncias();
-  		var referenciaFirebase = referencia.push();
+  		else if(($scope.denuncia.tipoReclamo == 5 || $scope.denuncia.tipoReclamo == 6) && 
+  			$scope.denuncia.fechaInicio > $scope.denuncia.fechaFin)
+  		{
+  			alert('La fecha de finalización no puede ser anterior a la fecha de inicio');
+  		}
+  		else if(($scope.denuncia.tipoReclamo == 5 || $scope.denuncia.tipoReclamo == 6) && 
+  			$scope.denuncia.fechaInicio < $scope.denuncia.fechaIngreso)
+  		{
+  			alert('La fecha de inicio no puede ser anterior a la fecha actual');
+  		}
+  		else {
 
-  		referenciaFirebase.set($scope.denuncia, function(error){
-  			var mensaje = '';
+			$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
+	  		$scope.cargando = true;
+			$scope.denuncia.fechaIngreso = new Date();
+			if($scope.opciones.esubicacionactual){
+	  			$scope.denuncia.lugar = $scope.denuncia.ubicacionactual;
+	  		}	
+	  	
+	  		console.info($scope.denuncia.tipoReclamo);
+	  		switch($scope.denuncia.tipoReclamo){
+	  			case 1:
+	  			case 2:
+	  			case 3:
+	  			case 4:		  		
+			  		if($scope.opciones.esfechaactual){
+			  			$scope.denuncia.fechaSuceso = $scope.denuncia.fechaIngreso;
+			  		}
+			  		$scope.denuncia.fechaInicio = $scope.denuncia.fechaFin = null;
+			  		$scope.denuncia.fechaSuceso = $scope.denuncia.fechaSuceso.getTime();
+			  		$scope.denuncia.fechaIngreso = $scope.denuncia.fechaIngreso.getTime();
 
-  			if(error){
-  				mensaje = 'Ocurrió un problema al subir la denuncia. Intentelo más tarde.';
-  				console.error('Error denuncia: ', error);
-  			}
-  			else{
-  				mensaje = 'Denuncia ingresada correctamente. La denuncia se encuentra pendiente de aprobación';
-  				console.info('Denuncia: ', $scope.denuncia);
-  				try{
-  					SrvFirebase.EnviarNotificacion();
-  				}catch(error){
-  					alert(error);
-  				}
-  			}
+			  		break;
+			  	case 5:
+			  	case 6:
+				  	$scope.denuncia.fechaSuceso = null;
+
+			  		$scope.denuncia.fechaInicio = $scope.denuncia.fechaInicio.getTime();
+			  		$scope.denuncia.fechaFin = $scope.denuncia.fechaFin.getTime();
+			  		$scope.denuncia.fechaIngreso = $scope.denuncia.fechaIngreso.getTime();
+			  		break;
+	  		}
+	  		
+	  		$scope.denuncia.estado = 'Pendiente';
+			console.info($scope.denuncia);
+	  		var referencia = SrvFirebase.RefDenuncias();
+	  		var referenciaFirebase = referencia.push();
+
+	  		referenciaFirebase.set($scope.denuncia, function(error){
+	  			var mensaje = '';
+
+	  			if(error){
+	  				mensaje = 'Ocurrió un problema al subir la denuncia. Intentelo más tarde.';
+	  				console.error('Error denuncia: ', error);
+	  			}
+	  			else{
+	  				mensaje = 'Denuncia ingresada correctamente. La denuncia se encuentra pendiente de aprobación';
+	  				console.info('Denuncia: ', $scope.denuncia);
+	  				try{
+	  					SrvFirebase.EnviarNotificacion();
+	  				}catch(error){
+	  					alert(error);
+	  				}
+	  			}
 
 
-  			$timeout(function(){
-  				$scope.cargando = false;
-  				alert(mensaje);
+	  			$timeout(function(){
+	  				$scope.cargando = false;
+	  				alert(mensaje);
 
-  				$scope.denuncia.adicional = null;
-  			}, 1000);
-
-  		});
+	  				$scope.denuncia.adicional = null;
+	  			}, 1000);
+	  		});
+	  	}
   	}
 })

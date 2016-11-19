@@ -41,8 +41,8 @@
 		<div  ng-show="denuncia.tipoReclamo == 5 || denuncia.tipoReclamo == 6">
 			<label class="item item-input">
 				<ion-list ng-show="opciones.esmobile">
-				    <div class="item" ion-datetime-picker ng-model="datetimeValue" only-valid="{'after': denuncia.fechaIngreso, 'inclusive': true}" ng-click="ElegirFecha()">
-				        {{datetimeValue| date: "yyyy-MM-dd H:mm"}}
+				    <div class="item" ion-datetime-picker ng-model="denuncia.fechaInicio" only-valid="{'after': denuncia.fechaIngreso, 'inclusive': true}" ng-click="ElegirFecha()">
+				        {{denuncia.fechaInicio| date: "yyyy-MM-dd H:mm"}}
 				    </div>
 				</ion-list>
 				<input type="datetime-local" placeholder="Ingrese fecha y hora del inicio de la protesta/obra" ng-model="denuncia.fechaInicio" ng-show="!opciones.esmobile">
@@ -50,8 +50,8 @@
 
 			<label class="item item-input">
 				<ion-list ng-show="opciones.esmobile">
-				    <div class="item" ion-datetime-picker ng-model="datetimeValue" only-valid="{'after': denuncia.fechaInicio, 'inclusive': false}" ng-click="ElegirFecha()">
-				        {{datetimeValue| date: "yyyy-MM-dd H:mm"}}
+				    <div class="item" ion-datetime-picker ng-model="denuncia.fechaFin" only-valid="{'after': denuncia.fechaInicio, 'inclusive': false}" ng-click="ElegirFecha()">
+				        {{denuncia.fechaFin| date: "yyyy-MM-dd H:mm"}}
 				    </div>
 				</ion-list>
 				<input type="datetime-local" placeholder="Ingrese fecha y hora del fin de la protesta/obra" ng-model="denuncia.fechaFin" ng-show="!opciones.esmobile">
