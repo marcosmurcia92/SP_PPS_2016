@@ -300,7 +300,7 @@ ion-scroll[direction=y] {
 .action-button
 {
   position: relative; 
-  padding: 2px ;
+  padding: 7px ;
   margin: 0px 10px 10px 0px;
   float: left;
   border-radius: 5px;

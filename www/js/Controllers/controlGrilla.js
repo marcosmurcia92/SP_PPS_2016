@@ -48,7 +48,7 @@ angular.module('app.controllers')
     { field: 'tipoReclamo', name: 'tipo reclamo',minWidth: 90 ,
     cellTemplate:'<div ng-click="grid.appScope.Mostrar(row.entity)" >{{row.entity.tipoReclamo}}</div>'},
     { field: 'estado', name: 'estado'
-    ,cellTemplate:'<a style="width:100%" class="action-button shadow animate yellow" ng-click="grid.appScope.CambiarEstado(row.entity,grid.renderContainers.body.visibleRowCache.indexOf(row))" ><i class="glyphicon glyphicon-erase">&nbsp;{{row.entity.estado}}</i></a>'
+    ,cellTemplate:'<a style="width:100%" class="action-button shadow animate blue" ng-click="grid.appScope.CambiarEstado(row.entity,grid.renderContainers.body.visibleRowCache.indexOf(row))" ><i class="glyphicon glyphicon-erase">&nbsp;{{row.entity.estado}}</i></a>'
     , enableFiltering: false}
     ];
     $scope.ReclaConfigColum= [ { field: 'usuario', name: 'usuario',minWidth: 90,
@@ -116,6 +116,8 @@ angular.module('app.controllers')
     $scope.cantidadR=-1;
     $scope.GDenucias.paginationPageSizes = [25, 50, 75];
     $scope.GDenucias.paginationPageSize = 25;
+    $scope.GDenucias.enableVerticalScrollbar = uiGridConstants.scrollbars.ALWAYS;
+    $scope.GReclamos.enableVerticalScrollbar = uiGridConstants.scrollbars.ALWAYS;
 
     referenciaDenuncia.once('value', function(snap) {
         $scope.cantidad=snap.numChildren();

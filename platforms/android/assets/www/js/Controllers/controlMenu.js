@@ -60,7 +60,7 @@ angular.module('app.controllers', ['firebase', 'ngCordova'])
 				openLogin();
 			});
 
-		}else if($ionicUser.social.github.data != null || $ionicUser.social.google.data != null){
+		}else {
 			$ionicAuth.logout();
 			$state.go('menu.denunciaUnEvento');
 			openLogin();

@@ -32,7 +32,6 @@ angular.module('app.controllers')
 	$scope.opciones = {};
 	$scope.denuncia = {};
 	//El usuario debería tomarse desde el rootscope donde tiene información del usuario logueado
-	$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
 	$scope.denuncia.ubicacionactual = {};
 	$scope.denuncia.lugar = {};
 	$scope.denuncia.fechaIngreso = $scope.denuncia.fechaSuceso = $scope.denuncia.fechaInicio = $scope.denuncia.fechaFin = new Date();
@@ -92,7 +91,7 @@ angular.module('app.controllers')
   	$scope.ElegirFecha = function(){
   		//funcionalidad que lanza el cordovadatetimepicker si la app corre en mobile
 		if(($scope.denuncia.tipoReclamo != 5 && $scope.denuncia.tipoReclamo != 6 && !$scope.opciones.esfechaactual) 
-			||(scope.denuncia.tipoReclamo == 5 || $scope.denuncia.tipoReclamo == 6 )
+			||($scope.denuncia.tipoReclamo == 5 || $scope.denuncia.tipoReclamo == 6 )
 			&& $scope.opciones.esmobile){
 		  	try{
 		  		$ionicPlatform.ready(function() {
@@ -121,7 +120,7 @@ angular.module('app.controllers')
   	$scope.TraerCoordenadas = function(){
   		//funcionalidad que utiliza la directiva googleplace para parsear la dirección a coordenadas
   		var request = {
-        	address: $scope.denuncia.lugar.name
+        	address: $scope.denuncia.lugar.nombre
       	};
       	console.info(request);
       	var geocoder = new google.maps.Geocoder();
@@ -133,8 +132,8 @@ angular.module('app.controllers')
 	        	if (status == google.maps.GeocoderStatus.OK) {
 	        		if (data[0] != null) {
 	        			console.info(data);
-	            		$scope.denuncia.lugar.lat = data[0].lat;
-	            		$scope.denuncia.lugar.long = data[0].lng;
+	            		$scope.denuncia.lugar.lat = data[0].geometry.location.lat();
+	            		$scope.denuncia.lugar.long = data[0].geometry.location.lng();
 	          		} else {
 	          			console.error("No hay informacion", data);
 	          		}
@@ -146,6 +145,9 @@ angular.module('app.controllers')
 
   	$scope.cargando = false;
   	$scope.Denunciar = function(){
+  		console.info($scope.denuncia);
+
+		$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
   		$scope.cargando = true;
 		$scope.denuncia.fechaIngreso = new Date();
 		if($scope.opciones.esubicacionactual){
@@ -167,6 +169,7 @@ angular.module('app.controllers')
 		  	case 5:
 		  	case 6:
 			  	$scope.denuncia.fechaSuceso = null;
+
 		  		break;
   		}
   		

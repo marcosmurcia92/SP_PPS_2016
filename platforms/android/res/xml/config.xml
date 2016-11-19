@@ -32,12 +32,15 @@
         <param name="android-package" value="cz.Velda.cordova.plugin.devicefeedback.DeviceFeedback" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
     <name>AutopistasDelorian</name>
-    <description>
-        An Ionic Framework and Cordova project.
+    <description>
+        An Ionic Framework and Cordova project.
     </description>
-    <author email="you@example.com" href="http://example.com.com/">
-      Your Name Here
+    <author email="you@example.com" href="http://example.com.com/">
+      Your Name Here
     </author>
     <content src="index.html" />
     <access origin="*" />

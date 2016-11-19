@@ -32,7 +32,6 @@ angular.module('app.controllers')
 	$scope.opciones = {};
 	$scope.denuncia = {};
 	//El usuario debería tomarse desde el rootscope donde tiene información del usuario logueado
-	$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
 	$scope.denuncia.ubicacionactual = {};
 	$scope.denuncia.lugar = {};
 	$scope.denuncia.fechaIngreso = $scope.denuncia.fechaSuceso = $scope.denuncia.fechaInicio = $scope.denuncia.fechaFin = new Date();
@@ -92,7 +91,7 @@ angular.module('app.controllers')
   	$scope.ElegirFecha = function(){
   		//funcionalidad que lanza el cordovadatetimepicker si la app corre en mobile
 		if(($scope.denuncia.tipoReclamo != 5 && $scope.denuncia.tipoReclamo != 6 && !$scope.opciones.esfechaactual) 
-			||(scope.denuncia.tipoReclamo == 5 || $scope.denuncia.tipoReclamo == 6 )
+			||($scope.denuncia.tipoReclamo == 5 || $scope.denuncia.tipoReclamo == 6 )
 			&& $scope.opciones.esmobile){
 		  	try{
 		  		$ionicPlatform.ready(function() {
@@ -148,6 +147,7 @@ angular.module('app.controllers')
   	$scope.Denunciar = function(){
   		console.info($scope.denuncia);
 
+		$scope.denuncia.usuario = UsuarioDelorean.getName() != '' ? UsuarioDelorean.getName() : UsuarioDelorean.getEmail();
   		$scope.cargando = true;
 		$scope.denuncia.fechaIngreso = new Date();
 		if($scope.opciones.esubicacionactual){

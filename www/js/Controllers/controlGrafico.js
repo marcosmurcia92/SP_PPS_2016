@@ -20,7 +20,7 @@ angular.module('app.controllers')
 	SrvFirebase.RefDenuncias().on('child_added', function (snapshot) {
         var message = snapshot.val();
         cantTotal++;
-        if(message.estado == 'Rechazada'){
+        if(message.estado == 'Inactivo'){
         	cantRechazadas++;
         }else{
         	switch(message.tipoReclamo){
